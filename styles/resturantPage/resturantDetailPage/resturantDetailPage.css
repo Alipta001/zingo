@@ -1,0 +1,27 @@
+/* restaurant.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.res-detail-page {
+    background-color: #ffffff;
+    padding-top: 20px;
+    color: #1c1c1c;
+}
+
+/* The Grid that holds Menu and Sidebar */
+.res-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px; /* Main content is wider than sidebar */
+    gap: 40px;
+    margin-top: 30px;
+    align-items: start;
+}
+
+@media (max-width: 992px) {
+    .res-content-grid {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+}

@@ -1,0 +1,141 @@
+.footer-main {
+    background: #0f172a; /* Premium Navy Dark */
+    padding: 80px 0 30px 0;
+    color: #f8fafc;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-top-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+    gap: 40px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Brand Section --- */
+.footer-logo img {
+    height: 45px;
+    margin-bottom: 25px;
+    filter: brightness(0) invert(1); /* Forces logo to be white */
+}
+
+.footer-desc {
+    color: #94a3b8;
+    line-height: 1.6;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.social-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: #DC2625;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(220, 38, 37, 0.3);
+}
+
+/* --- Typography & Links --- */
+.footer-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #DC2625;
+}
+
+/* --- Contact & Info --- */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-link:hover { color: #fff; }
+
+/* --- App Store Buttons --- */
+.app-download-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.store-btn img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.store-btn:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Copyright Bottom --- */
+.footer-bottom {
+    padding-top: 30px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .footer-top-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .brand-col { grid-column: span 2; margin-bottom: 30px; }
+}
+
+@media (max-width: 600px) {
+    .footer-top-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .brand-col { grid-column: span 1; }
+    .social-wrapper { justify-content: center; }
+    .app-download-btns { align-items: center; }
+}

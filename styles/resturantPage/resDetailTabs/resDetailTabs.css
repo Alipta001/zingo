@@ -1,0 +1,90 @@
+/* resDetailTabs.css */
+
+/* Container for tabs */
+.res-tabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.4);
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+}
+
+/* Optional: custom scrollbar for webkit browsers */
+.res-tabs::-webkit-scrollbar {
+  height: 6px;
+}
+.res-tabs::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 3px;
+}
+.res-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Base tab button */
+.tab {
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+/* Hover animation */
+.tab:hover {
+  color: #DC2625; /* Brand color */
+  transform: scale(1.05);
+}
+
+/* Active tab styling */
+.tab.active {
+  color: #DC2625; /* Brand color */
+}
+
+/* Animated underline for active tab */
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0%;
+  height: 3px;
+  background: #DC2625; /* Brand color */
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+/* Show underline on hover */
+.tab:hover::after {
+  width: 50%;
+}
+
+/* Show underline for active tab */
+.tab.active::after {
+  width: 100%;
+}
+
+/* Smooth scroll on overflow */
+.res-tabs {
+  scroll-behavior: smooth;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .res-tabs {
+    gap: 12px;
+  }
+  .tab {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}

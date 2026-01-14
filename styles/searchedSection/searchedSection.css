@@ -1,0 +1,195 @@
+/* ============================================================
+   SEARCHED KOLKATA SECTION - Full CSS
+   ============================================================ */
+
+:root {
+  --zingo-red: #dc2625;
+  --zingo-yellow: #ffc72c;
+  --delivery-gradient: linear-gradient(135deg, #dc2625 0%, #ffc72c 100%);
+  --soft-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  --hover-shadow: 0 20px 40px -10px rgba(255, 199, 44, 0.3);
+  --card-border: #ffecb3;
+}
+
+.searched-kolkata-sec {
+  padding: 100px 0;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.searched-heading {
+  margin-bottom: 50px;
+}
+
+.searched-heading h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.city-highlight {
+  color: var(--zingo-red);
+}
+
+/* Grid Layout */
+.searched-kolkata-sec .row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+  align-items: stretch; /* Ensures cards are same height */
+}
+
+.col-4 {
+  width: 33.333%;
+  padding: 0 15px;
+}
+
+/* --- Card Styles --- */
+.searched-content-box {
+  background: #ffffff;
+  border: 1.5px solid var(--card-border);
+  border-radius: 20px;
+  padding: 35px 30px;
+  height: 100%;
+  position: relative;
+  box-shadow: var(--soft-shadow);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  /* Entrance Animation */
+  opacity: 0;
+  animation: slideInUp 0.6s ease forwards;
+}
+
+/* Card Hover State */
+.searched-content-box:hover {
+  transform: translateY(-12px);
+  border-color: var(--zingo-yellow);
+  box-shadow: var(--hover-shadow);
+}
+
+/* Typography & Numbers */
+.gradient-number {
+  display: block;
+  font-size: 42px;
+  font-weight: 800;
+  background: var(--delivery-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.desc-text {
+  font-size: 16px;
+  color: #4a4a4a;
+  font-weight: 500;
+  line-height: 1.5;
+  display: block;
+}
+
+/* View Link & Icon Row */
+.view-link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.view-action {
+  color: var(--zingo-red);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Hover Micro-Interactions */
+.searched-content-box:hover .arrow-icon {
+  transform: translateX(6px);
+}
+
+.card-icon-wrap img {
+  width: 65px;
+  height: auto;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.08));
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.searched-content-box:hover .card-icon-wrap img {
+  transform: scale(1.15) rotate(-8deg);
+}
+
+/* --- Keyframe Animations --- */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .searched-heading h2 { font-size: 28px; }
+  .gradient-number { font-size: 36px; }
+}
+
+@media (max-width: 992px) {
+  .col-4 {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+  .searched-kolkata-sec { padding: 70px 0; }
+}
+
+@media (max-width: 600px) {
+  .col-4 {
+    width: 100%;
+  }
+  
+  .searched-heading {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .searched-content-box {
+    padding: 25px;
+  }
+
+  .gradient-number {
+    font-size: 34px;
+  }
+
+  .view-action {
+    font-size: 14px;
+  }
+
+  .card-icon-wrap img {
+    width: 55px;
+  }
+}
+
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .searched-content-box {
+    animation: none;
+    opacity: 1;
+    transition: none;
+  }
+}

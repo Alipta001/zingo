@@ -1,0 +1,114 @@
+/* resDetailGallery.css */
+
+.res-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+  margin: 28px 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Base Image Styles */
+.res-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+}
+
+/* Main Image spans 2 rows */
+.main-img {
+  grid-row: span 2;
+  overflow: hidden;
+  position: relative;
+  border-radius: 14px;
+}
+
+/* Side Images Container */
+.side-imgs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual Side Images */
+.side-imgs img {
+  height: 50%;
+  overflow: hidden;
+  border-radius: 14px;
+  position: relative;
+}
+
+/* Large Side Image (right-most) */
+.large-side-img {
+  grid-row: span 2;
+  overflow: hidden;
+  border-radius: 14px;
+  position: relative;
+}
+
+/* Hover Effects */
+.res-gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+/* Optional overlay on hover for premium look */
+.res-gallery img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  transition: background 0.5s ease;
+}
+
+.res-gallery img:hover::after {
+  background: rgba(0,0,0,0.1);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .res-gallery {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .res-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .main-img,
+  .large-side-img {
+    grid-row: auto;
+  }
+
+  .side-imgs {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .side-imgs img {
+    width: 50%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-imgs img {
+    width: 100%;
+    height: auto;
+  }
+}
