@@ -1,8 +1,29 @@
+"use client"
 import "../../../styles/resturantPage/resDetailSideBar/resDetailSideBar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faDirections } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
+import { fetchResturantById } from "@/redux/slice/resturantSlice";
 
 export default function ResDetailSideBar(){
+   const { id } = useParams();
+  const dispatch = useDispatch();
+  const {
+    data: resturants,
+    loading,
+    error,
+  } = useSelector((state) => state.resturants.details);
+
+    const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(resturants.address)}&output=embed`;
+
+  useEffect(() => {
+    dispatch(fetchResturantById(id));
+  }, [dispatch, id]);
+
+  if (loading) return <p>Loading restaurants...</p>;
+  if (error) return <p>{error}</p>;
   return(
   <aside className="res-sidebar">
     <div className="reservation-card">
@@ -19,7 +40,7 @@ export default function ResDetailSideBar(){
       <h3>Direction</h3>
       <div className="map-placeholder">
          <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4485.922713763976!2d88.42612432320645!3d22.575206578757047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02750045121897%3A0x135eab1c888e8845!2sThe%20Garden%20Lounge!5e0!3m2!1sen!2sin!4v1768418447195!5m2!1sen!2sin"
+    src={mapUrl}
     width="100%"
     height="450"
     style={{ border: 0 }}
@@ -28,7 +49,7 @@ export default function ResDetailSideBar(){
     referrerPolicy="no-referrer-when-downgrade"
   />
       </div>
-      <p>187, Ward 10, Benaras Road, Salkia, Howrah</p>
+      <p>{resturants.address}</p>
       <div className="flex-btns">
         <button><FontAwesomeIcon icon={faCopy} /> Copy</button>
         <button><FontAwesomeIcon icon={faDirections} /> Direction</button>

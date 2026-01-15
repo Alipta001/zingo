@@ -85,7 +85,7 @@ const resturantSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(resturantList.pending, (state) => {
+      .addCase(resturantList.pending, (state,) => {
         state.list.loading = true;
         state.error = null;
       })

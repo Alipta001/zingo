@@ -19,11 +19,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import resturantReducer from "../slice/resturantSlice";
 import showDataOnScreenSlice from "../slice/showSlice";
 import menuSlice from "../slice/menuSlice";
+import cartSlice from "../slice/cartSlice";
 
 export const store = configureStore({
   reducer: {
     resturants: resturantReducer,
     menu: menuSlice.reducer,
+    cart: cartSlice.reducer,
     showDataOnScreen: showDataOnScreenSlice.reducer
   },
 });

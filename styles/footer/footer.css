@@ -1,141 +1,227 @@
+/* =========================
+   FOOTER BASE
+========================= */
 .footer-main {
-    background: #0f172a; /* Premium Navy Dark */
-    padding: 80px 0 30px 0;
-    color: #f8fafc;
-    font-family: 'Inter', sans-serif;
+  background: #0f172a; /* Premium Navy */
+  padding: 80px 0 30px;
+  color: #f8fafc;
+  font-family: "Inter", sans-serif;
+  animation: footerFadeUp 0.6s ease forwards;
 }
 
+@keyframes footerFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   GRID STRUCTURE
+========================= */
 .footer-top-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
-    gap: 40px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* --- Brand Section --- */
-.footer-logo img {
-    height: 45px;
-    margin-bottom: 25px;
-    filter: brightness(0) invert(1); /* Forces logo to be white */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   BRAND COLUMN
+========================= */
+.footer-brand {
+  max-width: 420px;
+}
+
+.footer-logo {
+  height: 45px;
+  margin-bottom: 22px;
+  filter: brightness(0) invert(1);
 }
 
 .footer-desc {
-    color: #94a3b8;
-    line-height: 1.6;
-    font-size: 15px;
-    margin-bottom: 25px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin-bottom: 26px;
 }
 
+/* =========================
+   SOCIAL ICONS
+========================= */
 .social-wrapper {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .social-icon {
-    width: 38px;
-    height: 38px;
-    background: rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    color: #fff;
-    text-decoration: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.35s ease;
 }
 
 .social-icon:hover {
-    background: #DC2625;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(220, 38, 37, 0.3);
+  background: #dc2625;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(220, 38, 37, 0.35);
 }
 
-/* --- Typography & Links --- */
+/* =========================
+   TITLES & LINKS
+========================= */
 .footer-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #ffffff;
 }
 
 .footer-links {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-links li {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .footer-links a {
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 15px;
-    transition: color 0.3s ease;
+  font-size: 15px;
+  color: #94a3b8;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #dc2625;
+  transition: width 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: #DC2625;
+  color: #ffffff;
 }
 
-/* --- Contact & Info --- */
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   CONTACT
+========================= */
 .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .contact-link {
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.contact-link:hover { color: #fff; }
+.contact-link span {
+  transition: transform 0.3s ease;
+}
 
-/* --- App Store Buttons --- */
+.contact-link:hover {
+  color: #ffffff;
+}
+
+.contact-link:hover span {
+  transform: translateX(4px);
+}
+
+/* =========================
+   APP DOWNLOAD
+========================= */
 .app-download-btns {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .store-btn img {
-    height: 40px;
-    width: auto;
-    transition: transform 0.3s ease;
+  height: 42px;
+  width: auto;
+  transition: transform 0.35s ease;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
 }
 
 .store-btn:hover img {
-    transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-/* --- Copyright Bottom --- */
+/* =========================
+   FOOTER BOTTOM
+========================= */
 .footer-bottom {
-    padding-top: 30px;
-    text-align: center;
-    color: #64748b;
-    font-size: 14px;
+  padding-top: 30px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* --- Responsive --- */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 1024px) {
-    .footer-top-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .brand-col { grid-column: span 2; margin-bottom: 30px; }
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brand-col {
+    grid-column: span 2;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 600px) {
-    .footer-top-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .brand-col { grid-column: span 1; }
-    .social-wrapper { justify-content: center; }
-    .app-download-btns { align-items: center; }
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .brand-col {
+    grid-column: span 1;
+  }
+
+  .social-wrapper {
+    justify-content: center;
+  }
+
+  .app-download-btns {
+    align-items: center;
+  }
 }

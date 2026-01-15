@@ -147,12 +147,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { resturantList } from "@/redux/slice/resturantSlice";
 import "../../../styles/resturantsSection/resturantsSection.css";
 import { BaseURL } from "@/api/axios/axios";
-import { increament } from "@/redux/slice/showSlice";
+import { increment } from "@/redux/slice/showSlice";
 
 const ResturantsSection = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const showData = useSelector((state)=> state.showDataOnScreen.count)
+  const showData = useSelector((state)=> state.showDataOnScreen.list.count)
   /* console.log(showData) */
   const {
     data: resturants,
@@ -183,14 +183,14 @@ const ResturantsSection = () => {
               <div className="rest-card">
                 <div className="card-image">
                   <img src={`${BaseURL}${res.image}`} alt={res.name} />
-                  <p className="off-badge">{res.off}</p>
+                  <p className="off-badge">30% OFF</p>
                 </div>
 
                 <div className="card-body">
                   <div className="card-content">
                     <h3 className="food-name">{res.name}</h3>
                     <p className="food-items">{res.cuisine_type}</p>
-                    <p className="food-items">{res.address}</p>
+                    {/* <p className="food-items">{res.address}</p> */}
                   </div>
 
                   <div className="rating-box">
@@ -204,7 +204,7 @@ const ResturantsSection = () => {
           ))}
           {resturants?.length === 0 && <p>No restaurants found</p>}
         </div>
-         <button onClick={() => dispatch(increament())}>Show More</button>
+         <button onClick={() => dispatch(increment())}>Show More</button>
       </div>
     </section>
   );

@@ -6,12 +6,15 @@ import ResDetailTabs from "@/component/resturantPage/resDetailTabs/resDetailTabs
 import ResDetailMenu from "@/component/resturantPage/resDetailMenu/resDetailMenu";
 import ResDetailSideBar from "@/component/resturantPage/resDetailSideBar/resDetailsideBar";
 import "../../../../styles/resturantPage/resturantDetailPage/resturantDetailPage.css";
+import SimilarResturantCard from "@/component/resturantPage/similarresturantCard/similarResturantCard";
+import ExploreOtherResturant from "@/component/resturantPage/exploreOtherResturant/exploreOtherResturant";
+import Footer from "@/component/globalLayout/footer/footer";
 
 export default function Page() {
   return (
     <>
-      <Navbar></Navbar>
       <div className="res-detail-page">
+        <Navbar />
         <div className="container">
           <ResDetailHeader />
           <ResDetailGallery />
@@ -23,7 +26,10 @@ export default function Page() {
             </div>
             <ResDetailSideBar />
           </div>
+          <SimilarResturantCard />
+          <ExploreOtherResturant />
         </div>
+        <Footer />
       </div>
     </>
   );
