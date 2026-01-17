@@ -46,18 +46,24 @@ export default function Navbar() {
   }, [debouncedSearch]);
 
   const combinedOptions = [
-  ...(restaurantDetails ?? []).map((r) => ({
-    id: r.id,
-    name: r.name,
-    type: "restaurant",
-  })),
-  ...(menu ?? []).map((m) => ({
-    id: m.id,
-    name: m.name,
-    restaurantId: m.restaurant_id,
-    type: "menu",
-  })),
+  ...(Array.isArray(restaurantDetails)
+    ? restaurantDetails.map((r) => ({
+        id: r.id,
+        name: r.name,
+        type: "restaurant",
+      }))
+    : []),
+
+  ...(Array.isArray(menu)
+    ? menu.map((m) => ({
+        id: m.id,
+        name: m.name,
+        restaurantId: m.restaurant_id,
+        type: "menu",
+      }))
+    : []),
 ];
+
 
   return (
     <header className="main-header">
