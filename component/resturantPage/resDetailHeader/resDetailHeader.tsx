@@ -97,7 +97,7 @@ export default function ResDetailHeader() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
-    data: resturants,
+    data: restaurantDetails,
     loading,
     error,
   } = useSelector((state) => state.resturants.details);
@@ -132,9 +132,9 @@ export default function ResDetailHeader() {
     <>
       <section className="res-header">
         <div className="res-title-info">
-          <h1>{resturants.name}</h1>
-          <p className="cuisines">{resturants.cuisine_type}</p>
-          <p className="address">{resturants.address}</p>
+          <h1>{restaurantDetails.name}</h1>
+          <p className="cuisines">{restaurantDetails.cuisine_type}</p>
+          <p className="address">{restaurantDetails.address}</p>
 
           <div className="res-meta">
             <span className="status">Open Now</span>
@@ -148,7 +148,7 @@ export default function ResDetailHeader() {
               onClick={() =>
                 window.open(
                   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    resturants.address
+                    restaurantDetails.address
                   )}`,
                   "_blank"
                 )
@@ -167,12 +167,12 @@ export default function ResDetailHeader() {
 
         <div className="res-rating-summary">
           <div className="rating-badge green">
-            <div className="stars">{renderStars(resturants.rating)}</div>
-            <small>{resturants.rating} Dining Ratings</small>
+            <div className="stars">{renderStars(restaurantDetails.rating)}</div>
+            <small>{restaurantDetails.rating} Dining Ratings</small>
           </div>
           <div className="rating-badge yellow">
-            <div className="stars">{renderStars(resturants.rating)}</div>
-            <small>{resturants.rating} Delivery Ratings</small>
+            <div className="stars">{renderStars(restaurantDetails.rating)}</div>
+            <small>{restaurantDetails.rating} Delivery Ratings</small>
           </div>
         </div>
       </section>

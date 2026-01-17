@@ -70,16 +70,58 @@
   transform: scale(1.1) rotate(-2deg);
 }
 
+
+
 /* Container for menu item cards */
 .menu-cards {
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
   flex-wrap: wrap;
+  gap: 10px; /* space between cards */
+  justify-content: center;
+  margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .menu-cards {
-    flex-direction: column;
+/* Individual menu item card */
+.menu-thumb {
+  flex: 0 1 48%; /* two cards per row */
+  max-width: 48%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* Optional: smaller gap on very small screens */
+@media (max-width: 480px) {
+  .menu-thumb {
+    flex: 0 1 48%; /* still two cards per row */
+    max-width: 48%;
   }
+}
+
+/* ALL Items button container */
+.show-all-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Button styling */
+.show-all-item button {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #dc2625, #f43f5e);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(220, 38, 37, 0.35);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.show-all-item button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(220, 38, 37, 0.45);
+  background: linear-gradient(135deg, #f43f5e, #dc2625);
 }

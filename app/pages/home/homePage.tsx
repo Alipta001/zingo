@@ -8,14 +8,14 @@ import PreferedPicks from '@/component/homeLayout/preferedPicks/preferedPicks'
 import NearbyFoods from '@/component/homeLayout/nearbyFoods/nearbyFoods'
 import OfferSection from '@/component/homeLayout/offersSection/offerSection'
 import Footer from '@/component/globalLayout/footer/footer'
-export default function Page() {
+export default function HomePage() {
   return (
     <>
     <Navbar></Navbar>
     <Banner></Banner>
     <HowItWorks></HowItWorks>
     <SearchedSection></SearchedSection>
-    <ResturantsSection></ResturantsSection>
+    <ResturantsSection />
     <PreferedPicks></PreferedPicks>
     <NearbyFoods></NearbyFoods>
     <OfferSection></OfferSection>

@@ -1,12 +1,10 @@
-import '../../../styles/offerSection/offerSection.css';
+import '../../../styles/homeLayoutCss/offerSection/offerSection.css';
 
 const OfferSection = () => {
   return (
     <section className="winter-special-banner-sec">
       <div className="container">
         <div className="winter-banner-wrapper">
-          {/* Decorative shapes for background depth */}
-          <div className="circle-blur"></div>
           
           <div className="winter-content-box">
             <div className="badge-glow">

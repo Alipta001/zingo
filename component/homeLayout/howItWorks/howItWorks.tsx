@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../../styles/howItWorks/howItWorks.css";
+import "../../../styles/homeLayoutCss/howItWorks/howItWorks.css";
 
 export default function HowItWorks() {
   const steps = [

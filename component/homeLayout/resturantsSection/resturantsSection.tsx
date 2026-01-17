@@ -145,7 +145,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { resturantList } from "@/redux/slice/resturantSlice";
-import "../../../styles/resturantsSection/resturantsSection.css";
+import "../../../styles/homeLayoutCss/resturantsSection/resturantsSection.css";
 import { BaseURL } from "@/api/axios/axios";
 import { increment } from "@/redux/slice/showSlice";
 
@@ -179,7 +179,7 @@ const ResturantsSection = () => {
 
         <div className="row">
           {resturants?.slice(0, showData).map((res) => (
-            <div className="col-4" key={res.id || res.id}onClick={() => router.push(`/pages/resturantDetail/${res.id}`)}>
+            <div className="col-4" key={res.id || res.id} onClick={() => router.push(`/pages/resturantDetail/${res.id}`)}>
               <div className="rest-card">
                 <div className="card-image">
                   <img src={`${BaseURL}${res.image}`} alt={res.name} />

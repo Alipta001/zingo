@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../../styles/searchedSection/searchedSection.css";
+import "../../../styles/homeLayoutCss/searchedSection/searchedSection.css";
 
 const SearchedSection = () => {
   const cards = [

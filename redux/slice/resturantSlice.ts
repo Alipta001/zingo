@@ -48,7 +48,7 @@ data: [],
   error: null,
  },
  details:{
-  data: {},
+  data: [],
   loading: false,
   error: null
  }
@@ -76,6 +76,16 @@ export const fetchResturantById = createAsyncThunk("resturantById", async(id, { 
     return response.data
   }catch(error){
      return rejectWithValue(error.message);
+  }
+})
+
+export const searchByResturant = createAsyncThunk("searchResturant", async(value,{rejectWithValue})=>{
+  try{
+    const response = await AxiosInstance.get(`${endPoints.resturant.searchResturant}/?q=${value}`)
+    console.log(response)
+    return response.data
+  }catch(error){
+    return rejectWithValue(error.message)
   }
 })
 
@@ -110,6 +120,20 @@ const resturantSlice = createSlice({
       .addCase(fetchResturantById.rejected, (state, action) => {
         state.details.loading = false;
         state.details.error = action.payload;
+      })
+
+      //search addcase
+      .addCase(searchByResturant.pending, (state) => {
+        state.details.loading = true;
+        state.details.error = null;
+      })
+      .addCase(searchByResturant.fulfilled, (state, action) => {
+        state.details.loading = false;
+        state.details.data = Array.isArray(action.payload)? action.payload: action.payload.data || [];
+      })
+      .addCase(searchByResturant.rejected, (state, action) => {
+        state.details.loading = false;
+        state.details.error = action.payload || {};
       });
   },
 });

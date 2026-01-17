@@ -92,7 +92,7 @@
 
 "use client";
 import React from "react";
-import "../../../styles/footer/footer.css";
+import "../../../styles/globalLayoutCss/footer/footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,

@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../../styles/preferedPicks/preferedPicks.css";
+import "../../../styles/homeLayoutCss/preferedPicks/preferedPicks.css";
 
 const PreferedPicks = () => {
   const picks = [

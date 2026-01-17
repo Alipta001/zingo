@@ -54,5 +54,6 @@ export default function MenuItemCard({ item, userId }) {
         </button>
       </div>
     </div>
+    
   );
 }

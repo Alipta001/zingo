@@ -2,6 +2,7 @@
 .nearby-food-sec {
     padding: 80px 0;
     background-color: transparent;
+    background: rgba(220, 38, 37, 0.05);
 }
 
 .food-heading {

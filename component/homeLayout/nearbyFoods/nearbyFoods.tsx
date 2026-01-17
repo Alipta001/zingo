@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/nearbyFoods/nearbyFoods.css';
+import '../../../styles/homeLayoutCss/nearbyFoods/nearbyFoods.css';
 
 const NearbyFoods = () => {
   const nearbyPlaces = [
