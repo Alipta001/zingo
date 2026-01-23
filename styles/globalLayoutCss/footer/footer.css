@@ -197,13 +197,29 @@
    RESPONSIVE
 ========================= */
 @media (max-width: 1024px) {
-  .footer-top-grid {
-    grid-template-columns: 1fr 1fr;
+  .social-wrapper {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
   }
 
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+  }
+  .social-wrapper {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .brand-col {
     grid-column: span 2;
     margin-bottom: 30px;
+    align-items: center;
   }
 }
 

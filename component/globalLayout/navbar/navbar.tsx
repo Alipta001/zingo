@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import Link from "next/link";
 import "../../../styles/globalLayoutCss/navbar/navbar.css";
-import { Biryani } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
 import { resturantList, searchByResturant } from "@/redux/slice/resturantSlice";
 import useDebounce from "@/hooks/useDebounce";
@@ -46,24 +45,31 @@ export default function Navbar() {
   }, [debouncedSearch]);
 
   const combinedOptions = [
-  ...(Array.isArray(restaurantDetails)
-    ? restaurantDetails.map((r) => ({
+    ...(Array.isArray(restaurantDetails)
+      ? restaurantDetails.map((r) => ({
+          id: r.id,
+          name: r.name,
+          type: "restaurant",
+        }))
+      : []),
+
+    ...(Array.isArray(menu)
+      ? menu.map((m) => ({
+          id: m.id,
+          name: m.name,
+          restaurantId: m.restaurant_id,
+          type: "menu",
+        }))
+      : []),
+  ];
+
+  const initialRestaurantOptions = Array.isArray(restaurantList)
+    ? restaurantList.map((r) => ({
         id: r.id,
         name: r.name,
         type: "restaurant",
       }))
-    : []),
-
-  ...(Array.isArray(menu)
-    ? menu.map((m) => ({
-        id: m.id,
-        name: m.name,
-        restaurantId: m.restaurant_id,
-        type: "menu",
-      }))
-    : []),
-];
-
+    : [];
 
   return (
     <header className="main-header">
@@ -72,7 +78,6 @@ export default function Navbar() {
         <div className="container">
           <div className="top-bar-content">
             <div className="location-wrapper">
-              {/* Location Pin Icon SVG */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -126,14 +131,26 @@ export default function Navbar() {
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
+
                 <Autocomplete
                   disablePortal
-                  options={debouncedSearch ? combinedOptions : restaurantList}
+                  options={debouncedSearch ? combinedOptions : initialRestaurantOptions}
                   getOptionLabel={(option) => option?.name ?? ""}
                   onInputChange={(event, value) => setSearchvalue(value)}
-                  onChange={(e, selectedOption) => {
-                    router.push(`/pages/resturantDetail/${selectedOption.id}`);
+                  onChange={(event, selectedOption) => {
+                    if (selectedOption) {
+                      console.log(selectedOption.type)
+                      if(selectedOption.type == "restaurant"){
+                        router.push(
+                        `/pages/resturantDetail/${selectedOption.id}`,
+                      );
+                      }else if(selectedOption.type == "menu"){
+                        router.push(
+                        `/pages/menu/${selectedOption.id}`,
+                      );
+                    }
                   }}
+                }
                   loading={detailsLoading}
                   sx={{ width: "100%" }}
                   renderInput={(params) => (
@@ -145,6 +162,9 @@ export default function Navbar() {
                       InputProps={{
                         ...params.InputProps,
                         disableUnderline: true,
+                        startAdornment: detailsLoading ? (
+                          <div className="skeleton skeleton-search" />
+                        ) : null,
                       }}
                     />
                   )}
@@ -164,10 +184,13 @@ export default function Navbar() {
               {/* Centered Links */}
               <ul className="nav-links">
                 <li>
-                  <Link href="#">Order Foods</Link>
+                  <Link href="/">Home</Link>
                 </li>
                 <li>
-                  <Link href="#">Restaurants</Link>
+                  <Link href="/pages/order">Order Foods</Link>
+                </li>
+                <li>
+                  <Link href="/pages/resturantList">Restaurants</Link>
                 </li>
                 <li>
                   <Link href="#">Offers</Link>

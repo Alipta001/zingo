@@ -1,0 +1,252 @@
+.resturantListSection{
+  background: #dc26250d;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header & Location Bar */
+.header {
+  margin-bottom: 30px;
+}
+
+.locationBar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.locBadge {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Layout Wrapper */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* THE GRID SYSTEM */
+.restaurantGrid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* --- MOBILE FILTER OVERLAY (THE NEW STUFF) --- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end; /* Keeps box at the bottom */
+}
+
+.filterBox {
+  width: 100%;
+  background: white;
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.boxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.boxHeader h3 { font-size: 18px; font-weight: 800; color: #1a1a1a; margin: 0; }
+
+.closeBtn {
+  background: #f5f5f5;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boxContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 0;
+}
+
+/* Mobile Input Styling */
+.mobileInputGroup p { font-weight: 700; margin-bottom: 15px; color: #444; }
+.rangeSlider { width: 100%; accent-color: #ff9f43; cursor: pointer; }
+
+.rangeLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+.mobileCheckList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.checkLabel input { width: 20px; height: 20px; accent-color: #ff9f43; }
+
+/* Footer Styling */
+.boxFooter {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.clearBtn, .applyBtn {
+  flex: 1;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+}
+
+.clearBtn { background: #f8f8f8; color: #666; }
+.applyBtn { background: #ff9f43; color: white; box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3); }
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+.mobileFilterBar {
+  display: none;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+}
+
+.pill {
+  padding: 10px 22px;
+  border-radius: 50px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #eee;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill:active { transform: scale(0.95); background: #fff5eb; }
+
+@media (max-width: 1100px) {
+  .restaurantGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 850px) {
+  .mainLayout { grid-template-columns: 1fr; }
+  .sidebarContainer { display: none; }
+  .mobileFilterBar { display: flex; }
+  .restaurantGrid { grid-template-columns: 1fr; }
+  .hideMobile { display: none; }
+}
+
+/* Adjust overlay for tablets to look like a centered modal instead of bottom sheet */
+@media (min-width: 600px) and (max-width: 850px) {
+  .overlay { align-items: center; justify-content: center; }
+  .filterBox { width: 450px; border-radius: 24px; height: auto; }
+}
+
+/* SHOW MORE BUTTON */
+.showMoreBtn {
+  display: block;
+  margin: 50px auto 20px;
+  padding: 14px 36px;
+
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+
+  color: #fff;
+  background: linear-gradient(135deg, #ff9f43, #ff7a18);
+
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(255, 159, 67, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Hover (Desktop) */
+.showMoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px rgba(255, 159, 67, 0.45),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+}
+
+/* Active (Click) */
+.showMoreBtn:active {
+  transform: scale(0.97);
+  box-shadow:
+    0 6px 16px rgba(255, 159, 67, 0.35),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .showMoreBtn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 0;
+    font-size: 16px;
+  }
+}

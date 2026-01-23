@@ -12,7 +12,7 @@
 
 .container {
   width: 100%;
-  max-width: 1200px; /* THIS PREVENTS IT FROM LOOKING HUGE ON LARGE SCREENS */
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 20px;
 }

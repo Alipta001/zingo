@@ -69,9 +69,10 @@ export default ResturantsSection; */
 
 // import React, { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// import {resturantList} from "@/redux/slice/productSlice";
+
 // /* import type { RootState, AppDispatch } from "@/redux/store"; */
-// import "../../styles/resturantsSection/resturantsSection.css";
+// import "@/styles/homeLayoutCss/resturantsSection/resturantsSection.css"
+// import { resturantList } from "@/redux/slice/resturantSlice";
 
 // const ResturantsSection = () => {
 //   const dispatch = useDispatch();
@@ -211,3 +212,4 @@ const ResturantsSection = () => {
 };
 
 export default ResturantsSection;
+

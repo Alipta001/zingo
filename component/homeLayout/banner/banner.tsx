@@ -73,6 +73,7 @@
 import React from 'react';
 import Link from 'next/link';
 import "../../../styles/homeLayoutCss/banner/banner.css";
+import Image from 'next/image';
 
 export default function Banner() {
   return (
@@ -108,10 +109,9 @@ export default function Banner() {
               {/* Pink Circle Background */}
               <div className="banner-circle-bg"></div>
               {/* Main Food Graphic */}
-              <img src="/images/banner/banner-image.png" alt="food" className="banner-hero-img" />
+              <Image src="/images/banner/banner-image.png" alt="food" width={500} height={500} className="banner-hero-img" />
             </div>
           </div>
-
         </div>
       </div>
     </section>

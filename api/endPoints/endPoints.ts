@@ -2,7 +2,7 @@ import { addToCart } from "@/redux/slice/cartSlice";
 
 let endPoints = {
     resturant:{
-        resturant: `http://localhost:8000/restaurants-api/get_restaurant`,
+        resturant: `/restaurants-api/get_restaurant`,
         resturantList: `/restaurants-api/restuarents_list`,
         searchResturant: `/restaurants-api/search`
     },

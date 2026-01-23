@@ -90,8 +90,7 @@
 
 // export default Footer;
 
-"use client";
-import React from "react";
+
 import "../../../styles/globalLayoutCss/footer/footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
