@@ -1,0 +1,38 @@
+.cardWrapper {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.animateFadeUp {
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardWrapper img {
+  animation: subtleFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes subtleFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animateFadeUp {
+    animation: none;
+    opacity: 1;
+  }
+  .cardWrapper img {
+    animation: none;
+  }
+}

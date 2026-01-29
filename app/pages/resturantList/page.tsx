@@ -1,7 +1,6 @@
 import Footer from '@/component/globalLayout/footer/footer'
 import Navbar from '@/component/globalLayout/navbar/navbar'
 import RestaurantSection from '@/component/resturantList/resturantSection/resturantSection'
-import React from 'react'
 export const metadata = {
   title: 'Restaurants Near You | Order Food Online with Zingo',
   description: 'Discover top restaurants near you and order food online with Zingo. Browse menus, compare prices, track live orders, and enjoy fast doorstep delivery.',

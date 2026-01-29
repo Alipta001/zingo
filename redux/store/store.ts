@@ -20,12 +20,16 @@ import resturantReducer from "../slice/resturantSlice";
 import showDataOnScreenSlice from "../slice/showSlice";
 import menuSlice from "../slice/menuSlice";
 import cartSlice from "../slice/cartSlice";
+import filterSlice from "../slice/filterSlice";
+import contactSlice from "../slice/contactslice";
 
 export const store = configureStore({
   reducer: {
     resturants: resturantReducer,
     menu: menuSlice.reducer,
     cart: cartSlice.reducer,
-    showDataOnScreen: showDataOnScreenSlice.reducer
+    showDataOnScreen: showDataOnScreenSlice.reducer,
+    filters: filterSlice.reducer,
+    contact: contactSlice.reducer,
   },
 });

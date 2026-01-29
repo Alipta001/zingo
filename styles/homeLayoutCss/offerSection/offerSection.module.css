@@ -1,0 +1,15 @@
+:root {
+  --winter-grad: linear-gradient(135deg, #FF3D3D 0%, #FFB119 100%);
+  --glass: rgba(255, 255, 255, 0.15);
+}
+
+
+/* @keyframes floatEffect {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px)  }
+}
+
+.floatImg {
+  animation: floatEffect 4s ease-in-out infinite;
+}
+ */

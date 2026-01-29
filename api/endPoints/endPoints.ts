@@ -1,4 +1,4 @@
-import { addToCart } from "@/redux/slice/cartSlice";
+
 
 let endPoints = {
     resturant:{
@@ -8,10 +8,18 @@ let endPoints = {
     },
     menu:{
         resturantMenu: `/menuItems-api/list_by_restaurant_api`,
-        searchItem:`/menuItems-api/search_api`
+        searchItem:`/menuItems-api/search_api/`
     },
     cart:{
         add : `/cart-api/add`
+    },
+    order:{
+        createOrder: `cart-api/orders-api/place-order/`,
+        getOrder: `cart-api/orders-api/track-order/:id/`,//:id ta api calling er  
+        listOrders: `orders-api/order-history/:id/`        
+    },
+    contact:{
+        email: `/contact-api/send-email/`
     }
 }
 export default endPoints;
