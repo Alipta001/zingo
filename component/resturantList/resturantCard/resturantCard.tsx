@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "@/styles/resturantList/resturantCard/resturantCard.module.css";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 
 export default function RestaurantCard({ item }: { item: any }) {
   const altText = `Dine at ${item.name} - Specializing in ${item.cuisine_type}`;

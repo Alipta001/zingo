@@ -8,9 +8,9 @@ const CATEGORIES = ["All", "Recipes", "Food Trends", "Healthy Eating", "Restaura
 const BLOG_POSTS = [
   {
     id: 1,
-    title: "The Secret to the Perfect Lucknawi Biryani",
-    excerpt: "Discover the age-old techniques that make Lucknawi biryani the king of all rice dishes...",
-    category: "Recipes",
+    title: "From Order to Delivery in 30 Minutes: How Modern Food Apps are Revolutionizing Fulfilment",
+    excerpt: "How Modern Food Apps Engineer Frictionless Fulfilment in Today's Fast-Paced World...",
+    category: "restaurant stories",
     date: "Oct 24, 2025",
     readTime: "8 min read",
     image: "/images/blog/blog1.png",
@@ -32,7 +32,7 @@ const BLOG_POSTS = [
     category: "Food Trends",
     date: "Oct 22, 2025",
     readTime: "5 min read",
-    image: "/images/blog/blog3.jpg",
+    image: "/images/blog/blog4.webp",
   },
    {
     id: 4,
@@ -41,7 +41,7 @@ const BLOG_POSTS = [
     category: "Food Trends",
     date: "Oct 22, 2025",
     readTime: "5 min read",
-    image: "/images/blog/blog4.webp",
+    image: "/images/blog/blog3.jpg",
   },
 ];
 

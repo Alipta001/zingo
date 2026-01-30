@@ -69,7 +69,7 @@ export default function BlogDetail() {
         <div className="mb-24 relative group">
           <div className="absolute -inset-4 bg-rose-100 rounded-[60px] -rotate-1 group-hover:rotate-0 transition-transform duration-1000" />
           <div className="relative h-[400px] md:h-[700px] rounded-[50px] overflow-hidden z-10 shadow-2xl">
-            <img src="/images/blogDetail/zingo-blog-2.png" alt="UX Interface" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" />
+            <img src="/images/blogDetail/zingo-blog-7.jpeg" alt="UX Interface" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" />
             <div className="absolute inset-0 bg-gradient-to-tr from-rose-950/40 via-transparent to-transparent" />
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function BlogDetail() {
               <p>The journey begins with browsing. Leading apps deploy smart filters and predictive search. One-tap reordering eliminates decision fatigue—a feature that can boost weekly active users by 15-20%.</p>
               
               <div className="my-20 relative">
-                 <img src="/images/blogDetail/zingo-blog-1.jpg" className="rounded-[40px] w-full object-cover shadow-2xl" alt="Mobile App View" />
+                 <img src="/images/blogDetail/zingo-blog-5.jpeg" className="rounded-[40px] w-full object-cover shadow-2xl" alt="Mobile App View" />
                  <div className="absolute -bottom-10 -right-10 w-64 bg-white p-8 rounded-[30px] shadow-2xl border border-rose-50 hidden md:block">
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Editor's Note</p>
                     <p className="text-sm font-serif italic text-rose-900">"Progressive disclosure hides optional fields until needed."</p>
@@ -123,7 +123,7 @@ export default function BlogDetail() {
 
               {/* Parallax Image Style */}
               <div className="my-24 h-[500px] rounded-[50px] overflow-hidden relative shadow-inner">
-                 <img src="/images/blogDetail/zingo-blog-2.jpg" alt="Logistics" className="w-full h-[120%] object-cover absolute -top-10" />
+                 <img src="/images/blogDetail/zingo-blog-6.jpeg" alt="Logistics" className="w-full h-[120%] object-cover absolute -top-10" />
                  <div className="absolute inset-0 bg-black/20" />
               </div>
 

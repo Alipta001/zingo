@@ -1,6 +1,6 @@
 import React from "react";
 import { MapPin, Clock, Star, RotateCcw, ChevronRight } from "lucide-react";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 
 export default function OrderCard({ order }) {
   const status = order.status?.toLowerCase() || "delivered";

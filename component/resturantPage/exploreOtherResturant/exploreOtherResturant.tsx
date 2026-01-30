@@ -4,7 +4,7 @@ import "../../../styles/resturantPage/exploreOtherResturant/exploreOtherResturan
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { resturantList } from "@/redux/slice/resturantSlice";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 
 export default function ExploreOtherResturant() {
     const dispatch = useDispatch();

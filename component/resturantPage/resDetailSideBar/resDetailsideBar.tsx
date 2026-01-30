@@ -61,9 +61,11 @@ export default function ResDetailSideBar() {
           <button className="sub-btn">
             <FontAwesomeIcon icon={faCopy} /> Copy
           </button>
-          <button className="sub-btn">
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    resturants.address,
+                  )}`} target="_blank"  className="sub-btn">
             <FontAwesomeIcon icon={faDirections} /> Direction
-          </button>
+          </a>
         </div>
       </div>
     </aside>
