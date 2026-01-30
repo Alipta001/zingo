@@ -146,13 +146,13 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { resturantList } from "@/redux/slice/resturantSlice";
 import "../../../styles/resturantsSection/resturantsSection.css";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 import { increment } from "@/redux/slice/showSlice";
 
 const ResturantsSection = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const showData = useSelector((state)=> state.showDataOnScreen.list.count)
+  const showData = useSelector((state) => state.showDataOnScreen.list.count);
   /* console.log(showData) */
   const {
     data: resturants,
@@ -179,7 +179,11 @@ const ResturantsSection = () => {
 
         <div className="row">
           {resturants?.slice(0, showData).map((res) => (
-            <div className="col-4" key={res.id || res.id}onClick={() => router.push(`/pages/resturantDetail/${res.id}`)}>
+            <div
+              className="col-4"
+              key={res.id || res.id}
+              onClick={() => router.push(`/pages/resturantDetail/${res.id}`)}
+            >
               <div className="rest-card">
                 <div className="card-image">
                   <img src={`${BaseURL}${res.image}`} alt={res.name} />
@@ -200,11 +204,10 @@ const ResturantsSection = () => {
                 </div>
               </div>
             </div>
-            
           ))}
           {resturants?.length === 0 && <p>No restaurants found</p>}
         </div>
-         <button onClick={() => dispatch(increment())}>Show More</button>
+        <button onClick={() => dispatch(increment())}>Show More</button>
       </div>
     </section>
   );

@@ -38,20 +38,20 @@ const resturantSlice = createSlice({
 export default resturantSlice; */
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AxiosInstance from "@/api/axios/axios";
-import endPoints from "@/api/endPoints/endPoints";
+import AxiosInstance from "@/app/api/axios/axios";
+import endPoints from "@/app/api/endPoints/endPoints";
 
 const initialState = {
- list:{
-data: [],
-  loading: false,
-  error: null,
- },
- details:{
-  data: {},
-  loading: false,
-  error: null
- }
+  list: {
+    data: [],
+    loading: false,
+    error: null,
+  },
+  details: {
+    data: {},
+    loading: false,
+    error: null,
+  },
 };
 
 export const resturantList = createAsyncThunk(
@@ -59,25 +59,30 @@ export const resturantList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get(
-        endPoints.resturant.resturantList
+        endPoints.resturant.resturantList,
       );
-      console.log(response)
-      return response.data; 
+      console.log(response);
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
-export const fetchResturantById = createAsyncThunk("resturantById", async(id, { rejectWithValue })=>{
-  try{
-    const response = await AxiosInstance.get(`${endPoints.resturant.resturant}/${id}`)
-    console.log(response)
-    return response.data
-  }catch(error){
-     return rejectWithValue(error.message);
-  }
-})
+export const fetchResturantById = createAsyncThunk(
+  "resturantById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await AxiosInstance.get(
+        `${endPoints.resturant.resturant}/${id}`,
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 const resturantSlice = createSlice({
   name: "resturants",
@@ -85,7 +90,7 @@ const resturantSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(resturantList.pending, (state,) => {
+      .addCase(resturantList.pending, (state) => {
         state.list.loading = true;
         state.error = null;
       })
@@ -97,7 +102,6 @@ const resturantSlice = createSlice({
         state.list.loading = false;
         state.list.error = action.payload;
       })
-
 
       .addCase(fetchResturantById.pending, (state) => {
         state.details.loading = true;

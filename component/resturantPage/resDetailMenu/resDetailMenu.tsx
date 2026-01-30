@@ -50,7 +50,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { resturantWiseItem } from "@/redux/slice/menuSlice";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 import { decrement, increment } from "@/redux/slice/showSlice";
 import { addToCart } from "@/redux/slice/cartSlice";
 import MenuItemCard from "../menuItemCard/menuItemCard";
