@@ -1,0 +1,58 @@
+/* Custom Button with hover animation */
+.luxuryBtn {
+  position: relative;
+  background: black;
+  color: white;
+  padding: 18px 60px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.luxuryBtn:hover {
+  background: #e22625;
+  letter-spacing: 6px;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(226, 38, 37, 0.2);
+}
+
+/* Mobile Bottom Sheet Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bottomSheet {
+  width: 100%;
+  background: white;
+  border-radius: 40px 40px 0 0;
+  padding: 35px 25px;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Custom Scrollbar for Mobile Pills */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

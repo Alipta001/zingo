@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     list:{
-        count: 6
+        count: 6,
+        count2: 15
     },
     addToCart:{
         quantities:{} as any
@@ -14,6 +15,7 @@ const showDataOnScreenSlice = createSlice({
         increment(state,action){
             const itemId = action.payload;
             state.list.count +=6;
+            state.list.count2 +=6;
             state.addToCart.quantities[itemId] =
         (state.addToCart.quantities[itemId] || 1) + 1;
         },

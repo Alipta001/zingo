@@ -1,7 +1,6 @@
-/* @import "tailwindcss"; */
+/* @import "tailwindcss";
 
-
-/* :root {
+:root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -24,34 +23,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-} */
-
-
-
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
-:root {
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --border-light: #e5e7eb;
-  --bg-soft: #f9fafb;
-  --brand: #ef4444;
-}
+ */
+
+
+
+@import "tailwindcss";
+
+/* Optional font */
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"); */
 
 body {
   font-family: "Inter", system-ui, sans-serif;
-  background: #ffffff;
-  color: var(--text-primary);
-}
-
-button {
-  font-family: inherit;
 }
 
  

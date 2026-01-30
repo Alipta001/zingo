@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "component/resturantList/resturantCard"  ],
   "exclude": ["node_modules"]
 }

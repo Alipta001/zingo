@@ -1,0 +1,37 @@
+.premiumCard {
+  background: #ffffff;
+  /* Premium Border: 1px subtle rose-tinted slate */
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.premiumCard:hover {
+  transform: translateY(-8px);
+  /* Deeper shadow with a hint of crimson glow */
+  box-shadow: 
+    0 20px 40px -15px rgba(157, 30, 30, 0.08),
+    0 0 0 2px rgba(190, 18, 60, 0.1); /* Subtle red outer glow on hover */
+}
+
+/* Luxury Label Colour: Champagne Gold */
+.labelGold {
+  color: #a38b6d;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Professional Heading: Deep Onyx */
+.headingOnyx {
+  color: #0f172a;
+}
+
+/* Muted Rose for secondary details */
+.mutedRose {
+  color: #9f1239;
+}
+

@@ -1,0 +1,16 @@
+.fadeUp {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUpNearby 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUpNearby {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

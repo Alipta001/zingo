@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+.contactPage {
+  --primary-red: #ef4f5f;
+  --deep-ruby: #d33c4a;
+  --white: #ffffff;
+  
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 100px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* --- LEFT SIDE: TEXT CONTENT --- */
+.eyebrow {
+  display: inline-block;
+  color: var(--primary-red);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 3px;
+  background: rgba(239, 79, 95, 0.08);
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 25px;
+}
+
+.mainTitle {
+  font-size: clamp(45px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -3px;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: var(--primary-red);
+}
+
+.subText {
+  font-size: 20px;
+  color: #555;
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 40px;
+}
+
+.quickContact {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.contactBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.boxIcon {
+  font-size: 26px;
+  background: white;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+.contactBox label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #aaa;
+  text-transform: uppercase;
+  display: block;
+}
+
+.contactBox p {
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+/* --- THE FORM CARD (RED & WHITE MIXTURE) --- */
+.modernCard {
+  /* THE MIX: Gradient from Brand Red to Deep Ruby */
+  background: linear-gradient(135deg, var(--primary-red) 0%, var(--deep-ruby) 100%);
+  padding: 60px;
+  border-radius: 45px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(239, 79, 95, 0.25);
+  border: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Decorative glass circle for texture */
+.modernCard::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(50px);
+}
+
+.formTitle {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--white); /* White text on red bg */
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+.inputField {
+  margin-bottom: 25px;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* THE INPUTS: Mixture of White and Red */
+.inputField input, 
+.inputField select, 
+.inputField textarea {
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: 18px;
+  /* Transparent white allows red background to mix in */
+  background: rgba(255, 255, 255, 0.15); 
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white); 
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.inputField input::placeholder, 
+.inputField textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Focus State: Becomes solid white for contrast */
+.inputField input:focus, 
+.inputField select:focus, 
+.inputField textarea:focus {
+  background: var(--white);
+  color: var(--deep-ruby);
+  border-color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* THE BUTTON: White to pop against Red form */
+.premiumBtn {
+  width: 100%;
+  background: var(--white);
+  color: var(--primary-red);
+  border: none;
+  padding: 22px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.premiumBtn:hover {
+  background: #1a1a1a;
+  color: var(--white);
+  transform: translateY(-5px);
+}
+
+.btnIcon {
+  font-size: 24px;
+}
+
+/* --- SUCCESS STATE --- */
+.successCard {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--white);
+  border-radius: 45px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.06);
+  color: #1a1a1a;
+  border: 2px solid var(--primary-red);
+}
+
+.successIcon {
+  font-size: 50px;
+  color: var(--white);
+  background: #159e00;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 30px;
+}
+
+.simpleLink {
+  background: none;
+  border: none;
+  color: var(--primary-red);
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 25px;
+  text-decoration: underline;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .subText { margin: 0 auto 40px; }
+  .quickContact { align-items: center; }
+  .inputRow { grid-template-columns: 1fr; }
+  .modernCard { padding: 40px 25px; }
+}
+
+/* --- LOADING STATE ENHANCEMENTS --- */
+.loadingCard {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--white);
+  border-radius: 45px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.06);
+  border: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(239, 79, 95, 0.1);
+  border-top: 6px solid var(--primary-red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- ERROR STATE ENHANCEMENTS --- */
+.errorBorder {
+  border-color: #ff4d4d !important;
+}
+
+.errorIcon {
+  background: #ff4d4d !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  box-shadow: 0 10px 20px rgba(255, 77, 77, 0.3);
+}
+
+.loadingCard h2, .successCard h2 {
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+
+.loadingCard p, .successCard p {
+  font-size: 18px;
+  color: #666;
+  max-width: 320px;
+  margin: 0 auto;
+}

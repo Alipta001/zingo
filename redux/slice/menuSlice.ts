@@ -23,6 +23,16 @@ export const resturantWiseItem = createAsyncThunk(
   },
 );
 
+export const searchByItem = createAsyncThunk("searchResturantByItem", async(value,{rejectWithValue})=>{
+  try{
+    const response = await AxiosInstance.get(`${endPoints.menu.searchItem}/?q=${value}`)
+    console.log(response)
+    return response.data
+  }catch(error){
+    return rejectWithValue(error.message)
+  }
+})
+
 /* export const fetchResturantById = createAsyncThunk("resturantById", async(id, { rejectWithValue })=>{
   try{
     const response = await AxiosInstance.get(`${endPoints.resturant.resturant}/${id}`)
@@ -52,18 +62,18 @@ const menuSlice = createSlice({
         state.error = action.payload;
       });
 
-    /* .addCase(fetchResturantById.pending, (state) => {
-        state.details.loading = true;
-        state.details.error = null;
+      .addCase(searchByItem.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(fetchResturantById.fulfilled, (state, action) => {
-        state.details.loading = false;
-        state.details.data = action.payload;
+      .addCase(searchByItem.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
       })
-      .addCase(fetchResturantById.rejected, (state, action) => {
-        state.details.loading = false;
-        state.details.error = action.payload;
-      }); */
+      .addCase(searchByItem.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

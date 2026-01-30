@@ -1,0 +1,53 @@
+/* Animation from your original design */
+@keyframes footerFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-footerFadeUp {
+  animation: footerFadeUp 0.6s ease forwards;
+}
+
+/* Nav Link Underline Effect */
+.footerNavLink {
+  font-size: 16px;
+  color: #94a3b8;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footerNavLink:hover {
+  color: #ffffff;
+}
+
+.footerNavLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #dc2625;
+  transition: width 0.3s ease;
+}
+
+.footerNavLink:hover::after {
+  width: 100%;
+}
+
+/* Social Icon Visibility Fix */
+.socialIconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.socialIconLink:hover {
+  cursor: pointer;
+  color: #dc2625;
+  transform: translateY(-5px);
+}
