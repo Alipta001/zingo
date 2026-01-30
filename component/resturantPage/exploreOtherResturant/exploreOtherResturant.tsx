@@ -4,11 +4,11 @@ import "../../../styles/resturantPage/exploreOtherResturant/exploreOtherResturan
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { resturantList } from "@/redux/slice/resturantSlice";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 
 export default function ExploreOtherResturant() {
-    const dispatch = useDispatch();
-    const carouselRef = useRef(null);
+  const dispatch = useDispatch();
+  const carouselRef = useRef(null);
   /* console.log(showData) */
   const {
     data: resturants,
@@ -23,7 +23,7 @@ export default function ExploreOtherResturant() {
   if (loading) return <p>Loading restaurants...</p>;
   if (error) return <p>{error}</p>;
 
- const scrollLeft = () => {
+  const scrollLeft = () => {
     carouselRef.current?.scrollBy({
       left: -340,
       behavior: "smooth",
@@ -38,8 +38,7 @@ export default function ExploreOtherResturant() {
   };
 
   return (
-
-<section className="restaurant-section">
+    <section className="restaurant-section">
       <div className="section-header">
         <h2 className="section-title">Explore Other Restaurants</h2>
 
@@ -54,11 +53,15 @@ export default function ExploreOtherResturant() {
       </div>
 
       <div className="restaurant-carousel" ref={carouselRef}>
-        {resturants.slice(8,15).map((res, i) => (
+        {resturants.slice(8, 15).map((res, i) => (
           <div className="restaurant-card" key={i}>
             <div className="image-wrap">
               <img src={`${BaseURL}${res.image}`} alt={res.name} />
-              {res.offer? <span className="offer-badge">{res.offer}</span>: <span className="offer-badge">20% OFF</span>}
+              {res.offer ? (
+                <span className="offer-badge">{res.offer}</span>
+              ) : (
+                <span className="offer-badge">20% OFF</span>
+              )}
             </div>
 
             <div className="card-body">

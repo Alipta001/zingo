@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AxiosInstance from "@/api/axios/axios";
-import endPoints from "@/api/endPoints/endPoints";
+import AxiosInstance from "@/app/api/axios/axios";
+import endPoints from "@/app/api/endPoints/endPoints";
 
 const initialState = {
-data: [],
+  data: [],
   loading: false,
   error: null,
 };
@@ -13,14 +13,15 @@ export const addToCart = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.post(
-        `${endPoints.cart.add}/`, payload
+        `${endPoints.cart.add}/`,
+        payload,
       );
-      console.log(response)
-      return response.data; 
+      console.log(response);
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 /* export const fetchResturantById = createAsyncThunk("resturantById", async(id, { rejectWithValue })=>{
@@ -50,10 +51,9 @@ const cartSlice = createSlice({
       .addCase(addToCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      });
 
-
-      /* .addCase(fetchResturantById.pending, (state) => {
+    /* .addCase(fetchResturantById.pending, (state) => {
         state.details.loading = true;
         state.details.error = null;
       })

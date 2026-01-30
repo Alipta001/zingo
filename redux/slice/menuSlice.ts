@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AxiosInstance from "@/api/axios/axios";
-import endPoints from "@/api/endPoints/endPoints";
+import AxiosInstance from "@/app/api/axios/axios";
+import endPoints from "@/app/api/endPoints/endPoints";
 
 const initialState = {
-data: [],
+  data: [],
   loading: false,
   error: null,
 };
@@ -13,14 +13,14 @@ export const resturantWiseItem = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get(
-        `${endPoints.menu.resturantMenu}/${id}`
+        `${endPoints.menu.resturantMenu}/${id}`,
       );
-      console.log(response)
-      return response.data; 
+      console.log(response);
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const searchByItem = createAsyncThunk("searchResturantByItem", async(value,{rejectWithValue})=>{
@@ -60,8 +60,7 @@ const menuSlice = createSlice({
       .addCase(resturantWiseItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
+      });
 
       .addCase(searchByItem.pending, (state) => {
         state.loading = true;

@@ -3,7 +3,7 @@ import "../../../styles/resturantPage/menuItemCard/menuItemCard.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 import { decrement, increment } from "@/redux/slice/showSlice";
 import { addToCart } from "@/redux/slice/cartSlice";
 
@@ -11,14 +11,14 @@ export default function MenuItemCard({ item, userId }) {
   const dispatch = useDispatch();
 
   const count = useSelector(
-    (state) => state.showDataOnScreen.addToCart.quantities[item.id] || 1
+    (state) => state.showDataOnScreen.addToCart.quantities[item.id] || 1,
   );
 
   const handleAddCart = () => {
     const payload = {
       user_id: userId,
       menu_item_id: item.id,
-      quantity: count
+      quantity: count,
     };
     dispatch(addToCart(payload));
   };

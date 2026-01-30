@@ -1,0 +1,315 @@
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+h2 {
+  color: #D8232A;
+}
+
+/* ================= MAIN SECTION ================= */
+.customer-acc-sec {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 15px;
+  overflow:hidden;
+}
+
+/* Dark transparent overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* ================= FORM CENTER ================= */
+.form-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Floating / glass effect */
+/* .glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  padding: 35px 30px;
+  transform: translateY(-25px); /* floating feel */
+/* } */ 
+.glass-form {
+  width: 100%;
+  max-width: 480px;
+
+  background: rgba(255, 255, 255, 0.22); /* slightly clearer */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-radius: 18px;
+  padding: 38px 32px;
+
+  /* 🔥 separation magic */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+  position: relative;
+}
+/* ================= ROLE DROPDOWN ================= */
+.acc-form select {
+  width: 100%;
+  padding: 14px 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.acc-form select:focus {
+  border-color: #D8232A;
+}
+
+
+
+/* ===== BACKGROUND IMAGE LAYER ===== */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/register/image.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(5px);              /* 🔥 image blur */
+  transform: scale(1.1);          /* blur edge fix */
+  z-index: 1;
+}
+
+/* ===== DARK + DEPTH OVERLAY ===== */
+.bg-blur {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);    /* 🔥 depth blur */
+  z-index: 2;
+}
+/* .form-wrapper {
+  position: relative;
+  z-index: 3;   
+} */
+
+.form-layer {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* ================= TITLE ================= */
+.user-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-transform: capitalize;
+}
+
+/* ================= FORM FIELDS ================= */
+.acc-form{
+  margin-bottom: 20px;
+}
+.password-form{
+  margin-bottom: 20px;
+}
+.confirm-form{
+  margin-bottom: 20px;
+}
+.acc-form label,
+.password-form label,
+.confirm-form label {
+   color: #ffffff;   
+  font-weight: 500;
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+   font-weight: 600;      /* bold */
+  font-size: 16px;       /* slightly bigger */
+}
+
+.acc-form input,
+.password-form input,
+.confirm-form input {
+  width: 100%;
+  padding: 14px 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.acc-form input:focus,
+.password-form input:focus,
+.confirm-form input:focus {
+  border-color: #D8232A;
+}
+
+/* ================= PASSWORD TOGGLE ================= */
+.input-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ================= TERMS ================= */
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0 28px;
+  font-size: 13px;
+}
+
+.terms label {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.terms-link {
+  color: #D8232A;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #D8232A;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.primary-btn:hover {
+  background: #522325;
+}
+
+.secondary-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid #ccc;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.secondary-btn:hover {
+  background-color: #e6e1e1;
+}
+
+/* ================= OR TEXT ================= */
+.or-text {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ================= ERROR ================= */
+.error {
+  font-size: 12px;
+  color: #ff4d4f;
+   margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+/* ================= FOOTER TEXT ================= */
+.already-account {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.signin-link {
+  color: #D8232A;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.signin-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= GOOGLE ================= */
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+.google-signin{
+  color:#ffffff;
+}
+.google-btn:hover{
+  background-color:black;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .glass {
+    padding: 28px 22px;
+    transform: translateY(-10px);
+  }
+
+  .user-title {
+    font-size: 24px;
+  }
+}
