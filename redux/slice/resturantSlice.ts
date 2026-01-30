@@ -59,14 +59,14 @@ export const resturantList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get(
-        endPoints.resturant.resturantList
+        endPoints.resturant.resturantList,
       );
-      console.log(response)
-      return response.data; 
+      console.log(response);
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchResturantById = createAsyncThunk("resturantById", async(id, { rejectWithValue })=>{
@@ -95,7 +95,7 @@ const resturantSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(resturantList.pending, (state,) => {
+      .addCase(resturantList.pending, (state) => {
         state.list.loading = true;
         state.error = null;
       })
@@ -107,7 +107,6 @@ const resturantSlice = createSlice({
         state.list.loading = false;
         state.list.error = action.payload;
       })
-
 
       .addCase(fetchResturantById.pending, (state) => {
         state.details.loading = true;

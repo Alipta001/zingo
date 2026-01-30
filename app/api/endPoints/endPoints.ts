@@ -1,6 +1,10 @@
 
 
 let endPoints = {
+    auth:{
+        signup:`/users-api/register`,
+        signin:`/users-api/login`,
+    },
     resturant:{
         resturant: `/restaurants-api/get_restaurant`,
         resturantList: `/restaurants-api/restuarents_list`,

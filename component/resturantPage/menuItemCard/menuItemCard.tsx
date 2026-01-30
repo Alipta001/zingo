@@ -78,14 +78,14 @@ export default function MenuItemCard({ item, userId }) {
   const dispatch = useDispatch();
 
   const count = useSelector(
-    (state) => state.showDataOnScreen.addToCart.quantities[item.id] || 1
+    (state) => state.showDataOnScreen.addToCart.quantities[item.id] || 1,
   );
 
   const handleAddCart = () => {
     const payload = {
       user_id: userId,
       menu_item_id: item.id,
-      quantity: count
+      quantity: count,
     };
     dispatch(addToCart(payload));
   };
