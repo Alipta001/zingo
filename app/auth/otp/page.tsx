@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import "../../../../styles/otp/otp.css";
+import "../../../styles/otp/otp.css";
 
 export default function OtpPage() {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
