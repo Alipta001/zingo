@@ -1,5 +1,5 @@
-import AxiosInstance from "@/api/axios/axios";
-import endPoints from "@/api/endPoints/endPoints";
+import AxiosInstance from "@/app/api/axios/axios";
+import endPoints from "@/app/api/endPoints/endPoints";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
