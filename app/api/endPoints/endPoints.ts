@@ -1,5 +1,3 @@
-
-
 let endPoints = {
     auth:{
         signup:`/users-api/register`,
@@ -17,9 +15,10 @@ let endPoints = {
     cart:{
         add : `/cart-api/add`
     },
+    
     order:{
         createOrder: `cart-api/orders-api/place-order/`,
-        getOrder: `cart-api/orders-api/track-order/:id/`,//:id ta api calling er  
+        getOrder: `cart-api/orders-api/track-order/:id/`,
         listOrders: `orders-api/order-history/:id/`        
     },
     contact:{

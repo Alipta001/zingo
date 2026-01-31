@@ -1,16 +1,15 @@
 "use client";
-
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "../../../../styles/register/register.css";
+import "../../../styles/register/register.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { authRegistration } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 /* ================== Yup Schema ================== */
 const schema = yup.object().shape({
@@ -32,7 +31,7 @@ const schema = yup.object().shape({
 
 });
 
-export default function CreateAccountForm() {
+export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   // const [selectedRole, setSelectedRole] = useState("");
@@ -60,10 +59,12 @@ export default function CreateAccountForm() {
 
     try {
       let res = await dispatch(authRegistration(formData)).unwrap();
-      if (res.status === true) {
-        router.push("/pages/auth/otp");
+      if (res.success) {
+        localStorage.setItem("Id", res.user.id);
+        router.push("/auth/otp");
+
       } else {
-        router.push("/pages/auth/signup");
+        router.push("/auth/signup");
       }
     } catch (error) {}
   };
@@ -176,7 +177,7 @@ export default function CreateAccountForm() {
                 <input type="checkbox" {...register("terms")} />
                 <label>
                   By clicking Create Account, you agree to Zingo’s{" "}
-                  <Link href="/terms" className="terms-link">
+                  <Link href="/pages/termsAndConditions" className="terms-link">
                     Terms of Use and Policies
                   </Link>
                 </label>
@@ -206,7 +207,7 @@ export default function CreateAccountForm() {
               {/* Sign In */}
               <p className="already-account">
                 Already have an account?
-                <Link href="/auth/signin" className="signin-link">
+                <Link href="/auth/signIn" className="signin-link">
                   Sign In
                 </Link>
               </p>
@@ -217,3 +218,5 @@ export default function CreateAccountForm() {
     </section>
   );
 }
+
+

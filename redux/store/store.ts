@@ -14,7 +14,6 @@ export default RootState = store.getState;
 export default AppDispatch =  store.dispatch; */
 
 "use client";
-
 import { configureStore } from "@reduxjs/toolkit";
 import resturantReducer from "../slice/resturantSlice";
 import showDataOnScreenSlice from "../slice/showSlice";
@@ -22,9 +21,11 @@ import menuSlice from "../slice/menuSlice";
 import cartSlice from "../slice/cartSlice";
 import filterSlice from "../slice/filterSlice";
 import contactSlice from "../slice/contactslice";
+import authSlice from "../slice/authSlice";
 
 export const store = configureStore({
   reducer: {
+    auth: authSlice.reducer,
     resturants: resturantReducer,
     menu: menuSlice.reducer,
     cart: cartSlice.reducer,

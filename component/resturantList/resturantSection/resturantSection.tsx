@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
 import { Sparkles, X, SearchX } from "lucide-react";
-
 import FilterSection from "../filterSideBar/filterSideBar";
 import RestaurantCard from "../resturantCard/resturantCard";
 import { resturantList } from "@/redux/slice/resturantSlice";
 import { removeCuisine, clearAllFilters } from "@/redux/slice/filterSlice";
 import styles from "@/styles/resturantList/resturantSection/resturantSection.module.css";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 9;
 
 export default function RestaurantSection() {
   const dispatch = useDispatch();
@@ -139,7 +138,7 @@ export default function RestaurantSection() {
 
                 {/* PAGINATION */}
                 {pageCount > 1 && (
-                  <div className="mt-24 flex justify-center">
+                  <div className="mt-24 flex justify-center cursor-pointer">
                     <ReactPaginate
                       previousLabel="←"
                       nextLabel="→"
