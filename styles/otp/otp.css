@@ -1,0 +1,115 @@
+/* Page */
+.otp-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Background image */
+.otp-bg-image {
+  position: absolute;
+  inset: 0;
+  background: url("/images/register/image.png") no-repeat center/cover;
+  z-index: -2;
+}
+
+/* Blur overlay */
+.otp-bg-blur {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.35);
+  z-index: -1;
+}
+
+/* Center wrapper */
+.otp-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Glass card */
+.otp-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.otp-card h2 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: medium;
+}
+
+.otp-card p {
+  font-size: 14px;
+  margin-bottom: 24px;
+  opacity: 0.9;
+  font-weight: 700;
+}
+
+/* OTP inputs */
+.otp-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.otp-inputs input {
+  width: 46px;
+  height: 46px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #fff;
+  outline: none;
+  transition: 0.3s;
+}
+
+.otp-inputs input:focus {
+  border-color: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+/* Button */
+.otp-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #d8232a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.otp-btn:hover {
+  background: #b91d23;
+}
+
+/* Resend */
+.resend {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.resend span {
+  color: red;
+  cursor: pointer;
+  font-weight: 500;
+}
