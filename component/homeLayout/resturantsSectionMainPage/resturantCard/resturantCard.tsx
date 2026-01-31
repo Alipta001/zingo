@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL } from "@/app/api/axios/axios";
 import { Star, Clock, MapPin, Heart, ArrowRight } from "lucide-react";
 import styles from "../../../../styles/homeLayoutCss/resturantsSection/resturantsSection.module.css";
 

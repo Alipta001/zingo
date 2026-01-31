@@ -60,7 +60,7 @@ const menuSlice = createSlice({
       .addCase(resturantWiseItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
 
       .addCase(searchByItem.pending, (state) => {
         state.loading = true;
