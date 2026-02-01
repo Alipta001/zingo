@@ -267,7 +267,6 @@
 //     </header>
 //   );
 // }
-
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { Autocomplete, TextField } from "@mui/material";
@@ -321,11 +320,10 @@ export default function Navbar() {
 
   const initialOptions = Array.isArray(restaurantList) ? restaurantList.map((r) => ({ id: r.id, name: r.name, type: "restaurant" })) : [];
 
-  // --- NEW: Explicit Route Mapping to prevent 404s ---
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Order Foods", path: "/pages/order" },
-    { label: "Restaurants", path: "/pages/resturantList" }, // Exactly matches your folder name
+    { label: "Restaurants", path: "/pages/resturantList" },
     { label: "Contact Us", path: "/pages/contactus" },
   ];
 
@@ -390,11 +388,19 @@ export default function Navbar() {
             </div>
 
             {/* Hamburger for Mobile */}
-            <button className="lg:hidden order-3 flex flex-col gap-1.5 p-2" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+            <button className="lg:hidden order-3 flex flex-col gap-1.5 p-2 z-[1002]" onClick={() => setOpen(!open)} aria-label="Toggle menu">
               <span className={`block w-6 h-0.5 bg-black transition-transform ${open ? "rotate-45 translate-y-2" : ""}`} />
               <span className={`block w-6 h-0.5 bg-black ${open ? "opacity-0" : ""}`} />
               <span className={`block w-6 h-0.5 bg-black transition-transform ${open ? "-rotate-45 -translate-y-2" : ""}`} />
             </button>
+
+            {/* MOBILE OVERLAY */}
+            {open && (
+              <div 
+                className="fixed inset-0 bg-black/20 backdrop-blur-sm lg:hidden z-[1000]" 
+                onClick={() => setOpen(false)}
+              />
+            )}
 
             {/* Nav Links & Actions */}
             <div className={`fixed lg:static top-0 transition-all duration-400 ease-in-out shadow-2xl lg:shadow-none ${open ? "right-0" : "-right-full"} bg-white w-[280px] lg:w-auto h-screen lg:h-auto flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-[30px] p-[80px_30px] lg:p-0 z-[1001] lg:z-auto order-2 lg:order-3`}>
@@ -404,7 +410,7 @@ export default function Navbar() {
                     <Link 
                       href={item.path} 
                       className="text-[#333] font-bold text-[16px] relative group-hover:text-[#e23744] transition-colors"
-                      onClick={() => setOpen(false)} // Close mobile menu on click
+                      onClick={() => setOpen(false)} 
                     >
                       {item.label}
                       <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#e23744] -translate-x-1/2 transition-all group-hover:w-full" />
@@ -415,7 +421,11 @@ export default function Navbar() {
 
               <div className="flex items-center gap-4 mt-5 lg:mt-0 w-full lg:w-auto border-t lg:border-none pt-5 lg:pt-0">
                 {/* CART BUTTON */}
-                <Link href="#" className="bg-[#e23744] text-white px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2 hover:bg-[#c12e3a] transition-all">
+                <Link 
+                  href="#" 
+                  className="bg-[#e23744] text-white px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2 hover:bg-[#c12e3a] transition-all"
+                  onClick={() => setOpen(false)}
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="9" cy="21" r="1"></circle>
                     <circle cx="20" cy="21" r="1"></circle>
@@ -439,14 +449,14 @@ export default function Navbar() {
 
                   {profileOpen && (
                     <div className="absolute right-0 mt-4 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl py-2 z-[1100] animate-in fade-in zoom-in duration-200">
-                      <Link href="/auth/signIn" className="block px-5 py-3 text-sm font-bold text-[#333] hover:bg-rose-50 hover:text-[#e23744] transition-colors" onClick={() => setProfileOpen(false)}>
+                      <Link href="/auth/signIn" className="block px-5 py-3 text-sm font-bold text-[#333] hover:bg-rose-50 hover:text-[#e23744] transition-colors" onClick={() => {setProfileOpen(false); setOpen(false);}}>
                         Sign In
                       </Link>
-                      <Link href="/auth/signUp" className="block px-5 py-3 text-sm font-bold text-[#333] hover:bg-rose-50 hover:text-[#e23744] transition-colors" onClick={() => setProfileOpen(false)}>
+                      <Link href="/auth/signUp" className="block px-5 py-3 text-sm font-bold text-[#333] hover:bg-rose-50 hover:text-[#e23744] transition-colors" onClick={() => {setProfileOpen(false); setOpen(false);}}>
                         Sign Up
                       </Link>
                       <hr className="my-1 border-gray-50" />
-                      <button onClick={() => setProfileOpen(false)} className="w-full text-left block px-5 py-3 text-sm font-bold text-gray-400 hover:bg-gray-50 hover:text-black transition-colors">
+                      <button onClick={() => {setProfileOpen(false); setOpen(false);}} className="w-full text-left block px-5 py-3 text-sm font-bold text-gray-400 hover:bg-gray-50 hover:text-black transition-colors">
                         Logout
                       </button>
                     </div>
