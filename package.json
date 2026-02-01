@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "next telemetry disable"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -18,7 +19,6 @@
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@hookform/resolvers": "^5.2.2",
     "@mui/material": "^7.3.7",
-    "@next/swc-win32-x64-msvc": "^16.1.6",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.2",
     "lucide-react": "^0.563.0",
