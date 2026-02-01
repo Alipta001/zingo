@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Providers from "@/redux/store/provider";
 import "./globals.css";
-
+import { Toaster } from "sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,6 +30,12 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+           <Toaster 
+            position="top-right" 
+            richColors 
+            closeButton 
+            duration={4000} 
+          />
         </Providers>
       
       </body>

@@ -2,8 +2,9 @@
 
 let endPoints = {
     auth:{
-        signup:`/users-api/register`,
-        signin:`/users-api/login`,
+        signup:`/users-api/register/`,
+        signin:`/users-api/login/`,
+        otp:`/users-api/register/verify-otp/`
     },
     resturant:{
         resturant: `/restaurants-api/get_restaurant`,

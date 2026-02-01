@@ -22,6 +22,7 @@ import menuSlice from "../slice/menuSlice";
 import cartSlice from "../slice/cartSlice";
 import filterSlice from "../slice/filterSlice";
 import contactSlice from "../slice/contactslice";
+import authReducer from "../slice/authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -31,5 +32,6 @@ export const store = configureStore({
     showDataOnScreen: showDataOnScreenSlice.reducer,
     filters: filterSlice.reducer,
     contact: contactSlice.reducer,
+    auth:authReducer,
   },
 });
