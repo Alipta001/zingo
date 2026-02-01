@@ -22,7 +22,7 @@ let endPoints = {
         listOrders: `orders-api/order-history/:id/`        
     },
     contact:{
-        email: `/contact-api/send-email/`
+        email: `/contact-api/send-message/`
     }
 }
 export default endPoints;

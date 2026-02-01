@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styles from "../../../styles/contactSection/contactSection.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { contactFormSubmit } from "@/redux/slice/contactslice";
+import { contactFormSubmit } from "@/redux/slice/contactSlice";
 
 export default function ContactForm() {
   const [isSent, setIsSent] = useState(false);

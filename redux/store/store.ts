@@ -20,7 +20,7 @@ import showDataOnScreenSlice from "../slice/showSlice";
 import menuSlice from "../slice/menuSlice";
 import cartSlice from "../slice/cartSlice";
 import filterSlice from "../slice/filterSlice";
-import contactSlice from "../slice/contactslice";
+import contactSlice from "../slice/contactSlice";
 import authSlice from "../slice/authSlice";
 
 export const store = configureStore({

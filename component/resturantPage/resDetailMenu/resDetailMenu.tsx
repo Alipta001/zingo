@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { resturantWiseItem } from "@/redux/slice/menuSlice";
 import MenuItemCard from "../menuItemCard/menuItemCard";
+import Link from "next/dist/client/link";
 
 export default function ResDetailMenu() {
   const dispatch = useDispatch();
@@ -82,9 +83,9 @@ export default function ResDetailMenu() {
         )}
 
         {/* Button sits inside the grid container but spans all columns via CSS */}
-        <div className="show-all-item">
+        <Link href={`/pages/menuList/${id}`} className="show-all-item">
           <button>VIEW ALL {menu?.length} ITEMS</button>
-        </div>
+        </Link>
       </div>
     </div>
   );
