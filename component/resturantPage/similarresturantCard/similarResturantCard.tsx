@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { resturantList } from "@/redux/slice/resturantSlice";
-import { BaseURL } from "@/api/axios/axios";
+import { BaseURL} from "@/app/api/axios/axios";
 import Image from "next/image";
 import styles from "../../../styles/resturantPage/similarResturantCard/similarResturantCard.module.css";
 
