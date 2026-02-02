@@ -1,53 +1,56 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../../styles/contactSection/contactSection.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { contactFormSubmit } from "@/redux/slice/contactslice";
+import { contactFormSubmit } from "@/redux/slice/contactSlice";
 
 export default function ContactForm() {
   const [isSent, setIsSent] = useState(false);
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
-    name: "",
+    full_name: "",
     email: "",
     subject: "",
     message: "",
   });
 
-  const dispatch = useDispatch();
-  const {
-    loading: contactLoading,
-    error: contactError,
-  } = useSelector((state) => state.contact);
+  const { loading, error } = useSelector((state: any) => state.contact);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSend = (e) => {
+  const handleSend = async (e: any) => {
     e.preventDefault();
-    dispatch(contactFormSubmit(formData));
-    setIsSent(true);
+
+    const result = await dispatch(contactFormSubmit(formData));
+
+    if (contactFormSubmit.fulfilled.match(result)) {
+      setIsSent(true);
+    }
   };
 
-  // --- LOADING STATE ---
-  if (contactLoading) {
+  // reset error when user goes back
+  useEffect(() => {
+    if (!isSent) return;
+  }, [isSent]);
+
+  if (loading) {
     return (
       <div className={styles.loadingCard}>
         <div className={styles.spinner}></div>
         <h2>Sending Message...</h2>
-        <p>Please wait while we connect your inquiry to our team.</p>
       </div>
     );
   }
 
-  // --- ERROR STATE ---
-  if (contactError) {
+  if (error) {
     return (
       <div className={`${styles.successCard} ${styles.errorBorder}`}>
-        <div className={`${styles.successIcon} ${styles.errorIcon}`}>!</div>
         <h2>Submission Failed</h2>
-        <p>Something went wrong. Please try again after some time.</p>
+        <p>{typeof error === "string" ? error : "Server error occurred"}</p>
         <button onClick={() => setIsSent(false)} className={styles.simpleLink}>
           Go back to form
         </button>
@@ -55,13 +58,11 @@ export default function ContactForm() {
     );
   }
 
-  // --- SUCCESS STATE ---
   if (isSent) {
     return (
       <div className={styles.successCard}>
-        <div className={styles.successIcon}>✓</div>
         <h2>Message Sent!</h2>
-        <p>We've received your inquiry and will respond within 2 hours.</p>
+        <p>We will respond within 2 hours.</p>
         <button onClick={() => setIsSent(false)} className={styles.simpleLink}>
           Send another message
         </button>
@@ -72,16 +73,18 @@ export default function ContactForm() {
   return (
     <form className={styles.modernCard} onSubmit={handleSend}>
       <h3 className={styles.formTitle}>Send a Message</h3>
+
       <div className={styles.inputRow}>
         <div className={styles.inputField}>
           <input
             type="text"
             placeholder="Full Name"
-            name="name"
+            name="full_name" 
             required
             onChange={handleChange}
           />
         </div>
+
         <div className={styles.inputField}>
           <input
             type="email"
@@ -100,7 +103,9 @@ export default function ContactForm() {
           onChange={handleChange}
           required
         >
-          <option value="" disabled>How can we help?</option>
+          <option value="" disabled>
+            How can we help?
+          </option>
           <option value="order">Order Inquiries</option>
           <option value="business">Business Partnerships</option>
           <option value="feedback">Feedback</option>
@@ -118,7 +123,7 @@ export default function ContactForm() {
       </div>
 
       <button type="submit" className={styles.premiumBtn}>
-        Send Message <span className={styles.btnIcon}>→</span>
+        Send Message →
       </button>
     </form>
   );

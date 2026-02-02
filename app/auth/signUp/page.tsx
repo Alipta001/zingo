@@ -1,10 +1,8 @@
 "use client";
-
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "../../../../styles/register/register.css";
+import "../../../styles/register/register.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +28,7 @@ const schema = yup.object().shape({
   terms: yup.boolean().oneOf([true], "You must accept the terms & conditions"),
 });
 
-export default function CreateAccountForm() {
+export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   // const [selectedRole, setSelectedRole] = useState("");
@@ -80,7 +78,7 @@ export default function CreateAccountForm() {
 
         router.push("/pages/auth/otp");
       } else {
-        router.push("/pages/auth/signup");
+        router.push("/auth/signup");
       }
     } catch (error) {}
   };
@@ -195,7 +193,7 @@ export default function CreateAccountForm() {
                 <input type="checkbox" {...register("terms")} />
                 <label>
                   By clicking Create Account, you agree to Zingo’s{" "}
-                  <Link href="/terms" className="terms-link">
+                  <Link href="/pages/termsAndConditions" className="terms-link">
                     Terms of Use and Policies
                   </Link>
                 </label>
@@ -236,3 +234,5 @@ export default function CreateAccountForm() {
     </section>
   );
 }
+
+

@@ -48,7 +48,7 @@ data: [],
   error: null,
  },
  details:{
-  data: [],
+  data: {},
   loading: false,
   error: null
  }
@@ -97,7 +97,7 @@ const resturantSlice = createSlice({
     builder
       .addCase(resturantList.pending, (state) => {
         state.list.loading = true;
-        state.error = null;
+        state.list.error = null;
       })
       .addCase(resturantList.fulfilled, (state, action) => {
         state.list.loading = false;

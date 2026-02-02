@@ -37,14 +37,15 @@
 // });
 
 "use client";
-
 import { configureStore } from "@reduxjs/toolkit";
 import resturantReducer from "../slice/resturantSlice";
 import menuSlice from "../slice/menuSlice";
 import cartReducer from "../slice/cartSlice";
 import showDataOnScreenSlice from "../slice/showSlice";
 import filterSlice from "../slice/filterSlice";
-import contactSlice from "../slice/contactslice";
+import contactSlice from "../slice/contactSlice";
+import authSlice from "../slice/authSlice";
+import adminViewSlice from "../slice/adminViewSlice";
 import authReducer from "../slice/authSlice";
 
 export const store = configureStore({
@@ -55,9 +56,12 @@ export const store = configureStore({
     showDataOnScreen: showDataOnScreenSlice.reducer,
     filters: filterSlice.reducer,
     contact: contactSlice.reducer,
+    adminView: adminViewSlice.reducer,
     auth: authReducer,
   },
 });
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

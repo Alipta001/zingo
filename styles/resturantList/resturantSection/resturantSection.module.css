@@ -67,3 +67,43 @@
 }
 
 .noScrollbar::-webkit-scrollbar { display: none; }
+
+
+.pagination {
+  display: flex;
+  gap: 12px;
+}
+
+.pageItem {
+  list-style: none;
+}
+
+.pageLink {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: #881337;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageLink:hover {
+  background: #881337;
+  color: white;
+}
+
+.activePage .pageLink {
+  background: #881337;
+  color: white;
+}
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

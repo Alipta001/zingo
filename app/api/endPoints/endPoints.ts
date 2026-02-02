@@ -1,5 +1,3 @@
-
-
 let endPoints = {
     auth:{
         signup:`/users-api/register/`,
@@ -24,13 +22,14 @@ let endPoints = {
         clear:`/cart-api/clear-cart/`
 
     },
+    
     order:{
         createOrder: `cart-api/orders-api/place-order/`,
-        getOrder: `cart-api/orders-api/track-order/:id/`,//:id ta api calling er  
+        getOrder: `cart-api/orders-api/track-order/:id/`,
         listOrders: `orders-api/order-history/:id/`        
     },
     contact:{
-        email: `/contact-api/send-email/`
+        email: `/contact-api/send-message/`
     }
 }
 export default endPoints;

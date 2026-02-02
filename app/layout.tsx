@@ -25,6 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="preload" href="/_next/static/css/app.css" as="style" />
+<meta name="theme-color" content="#ffffff" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

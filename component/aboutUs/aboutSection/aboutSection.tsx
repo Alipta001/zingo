@@ -215,7 +215,7 @@ export default function AboutSection() {
 
         {/* --- SECTION 2: ABOUT ZINGO (NEW) --- */}
         <section className="py-20 mb-20">
-          <div className="bg-rose-800 rounded-[60px] p-12 lg:p-24 text-white relative overflow-hidden shadow-2xl shadow-rose-900/20">
+          <div className="bg-[#e23744] rounded-[60px] p-12 lg:p-24 text-white relative overflow-hidden shadow-2xl shadow-rose-900/20">
             <div className="absolute top-0 right-0 p-10 opacity-10">
                <h2 className="text-[15vw] font-black leading-none uppercase select-none">Zingo</h2>
             </div>
