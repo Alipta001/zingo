@@ -128,20 +128,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AxiosInstance from "@/app/api/axios/axios";
 import { toast } from "sonner";
 import endPoints from "@/app/api/endPoints/endPoints";
-import { stat } from "node:fs";
-
 
 // ==================== Types ====================
 interface AuthState {
   email: string;
   isOtpverified: boolean;
   loading: boolean;
+  isLoggedIn: boolean;
 }
 
 const initialState: AuthState = {
   email: "",
   isOtpverified: false,
   loading: false,
+  isLoggedIn: false,
 };
 
 // ==================== Async Thunks ====================
@@ -196,6 +196,44 @@ export const authOtp = createAsyncThunk(
 //     }
 //   }
 // );
+
+
+
+export const authLogin = createAsyncThunk("auth/authLogin", async (payload:{email:string,password:string},{rejectWithValue}) => {
+  try {
+    const res = await AxiosInstance.post(endPoints.auth.signin, payload,{
+      headers: { "Content-Type": "application/json" },
+    });
+    return res.data;
+  } catch (error: any) {
+    toast.error(error.response?.data?.message || "Login failed");
+    return rejectWithValue(error.response?.data || { message: "Login failed" });
+  }
+});
+
+// Verify LOGIN OTP (second OTP)
+
+export const authLoginOtp = createAsyncThunk(
+  "auth/authLoginOtp",
+  async (payload: { email: string; otp: string }, { rejectWithValue }) => {
+    try {
+      const response = await AxiosInstance.post(
+        endPoints.auth.signinOtp, // 👈 backend login-otp endpoint
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      console.log("LOGIN OTP RESPONSE:", response.data);
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Login OTP failed");
+      return rejectWithValue(
+        error.response?.data || { message: "Login OTP failed" }
+      );
+    }
+  }
+);
+
 
 // ==================== Slice ====================
 const authSlice = createSlice({
@@ -260,8 +298,67 @@ const authSlice = createSlice({
 //         state.loading = false;
 //         toast.error(payload?.message || "Failed to resend OTP");
 //       });
-  },
+
+// login
+// ---------------- Login ----------------
+builder
+  .addCase(authLogin.pending, (state) => {
+    state.loading = true;
+  })
+
+  .addCase(authLogin.fulfilled, (state, { payload }) => {
+    state.loading = false;
+
+    if (payload?.status === true) {
+      const email = payload?.user?.email || "";
+
+      // Redux state
+      state.email = email;
+      state.isLoggedIn = true;
+
+      if (email) {
+        localStorage.setItem("email", email);
+      }
+
+      toast.success(payload?.message || "Login successful");
+    } else {
+      toast.error(payload?.message || "Invalid email or password");
+    }
+  })
+
+  .addCase(authLogin.rejected, (state, { payload }) => {
+    state.loading = false;
+    toast.error(payload?.message || "Login failed");
+  });
+
+// ---------------- LOGIN OTP ----------------
+builder
+  .addCase(authLoginOtp.pending, (state) => {
+    state.loading = true;
+  })
+  .addCase(authLoginOtp.fulfilled, (state, { payload }) => {
+    state.loading = false;
+
+    if (payload?.status === true) {
+      toast.success(payload.message || "Login OTP verified");
+      state.isLoggedIn = true;
+
+      // optional: backend token
+      // if (payload?.token) {
+      //   localStorage.setItem("token", payload.token);
+      // }
+    } else {
+      toast.error(payload?.message || "Invalid OTP");
+    }
+  })
+  .addCase(authLoginOtp.rejected, (state, { payload }) => {
+    state.loading = false;
+    toast.error(payload?.message || "Login OTP verification failed");
+  });
+}
 });
+
+
 
 // export const { resendOtp } = authSlice.actions;
 

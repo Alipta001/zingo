@@ -1,0 +1,315 @@
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+h2 {
+  color: #D8232A;
+}
+
+/* ================= MAIN SECTION ================= */
+.customer-acc-sec {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+/* Dark transparent overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* ===== BACKGROUND IMAGE LAYER ===== */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/register/image.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+/* ===== DARK + DEPTH OVERLAY ===== */
+.bg-blur {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 2;
+}
+
+/* ================= FORM CENTER ================= */
+
+.form-layer {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.form-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 480px !important ;/* smaller width for perfect fit */ 
+  margin: 0 auto;
+}
+
+/* Floating / glass effect */
+.glass-form {
+  width: 100%;
+  max-width: 480px !important;
+  min-width: 320px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 32px 36px; /* reduced padding to fit all fields */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* consistent spacing between elements */
+}
+
+.create-acc-sec.glass-form {
+  width: 100%;
+  max-width: 520px;
+  min-width: 360px;
+}
+
+
+/* ================= TITLE ================= */
+.user-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+/* ================= FORM FIELDS ================= */
+.acc-form, .password-form, .confirm-form {
+  margin-bottom: 10px;
+}
+
+.acc-form label,
+.password-form label,
+.confirm-form label {
+  color: #ffffff;   
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.acc-form input,
+.password-form input,
+.confirm-form input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s;
+  color: #ffffff; 
+}
+
+.acc-form input:focus,
+.password-form input:focus,
+.confirm-form input:focus {
+  border-color: #D8232A;
+}
+
+/* ================= PASSWORD TOGGLE ================= */
+.input-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ================= ROLE DROPDOWN ================= */
+.acc-form select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.acc-form select:focus {
+  border-color: #D8232A;
+}
+
+/* ================= TERMS ================= */
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0 20px;
+  font-size: 13px;
+}
+
+.terms label {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.terms-link {
+  color: #D8232A;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn {
+  width: 100%;
+  padding: 10px 0;
+  background: #D8232A;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.primary-btn:hover {
+  background: #522325;
+}
+
+.secondary-btn {
+  width: 100%;
+  padding: 10px 0;
+  border: 1px solid #ccc;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  text-decoration: none;
+}
+
+.secondary-btn:hover {
+  background-color: #e6e1e1;
+}
+
+/* ================= OR TEXT ================= */
+.or-text {
+  text-align: center;
+  margin: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ================= ERROR ================= */
+.error {
+  font-size: 12px;
+  color: #ff4d4f;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+/* ================= FOOTER TEXT ================= */
+.already-account {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.signin-link {
+  color: #D8232A;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.signin-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= GOOGLE ================= */
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+.google-signin{
+  color:#ffffff;
+}
+.google-btn:hover{
+  background-color:black;
+}
+/* ===== FIX CHROME / EDGE AUTOFILL ===== */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important; /* text white */
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* remove white bg */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .glass-form {
+    padding: 18px 15px;
+    max-width: 95%;
+  }
+
+  .user-title {
+    font-size: 24px;
+  }
+
+  .primary-btn, .secondary-btn {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+}

@@ -60,8 +60,6 @@ export default function CreateAccountForm() {
       email: data.email,
       password: data.password,
       confirm_password: data.confirm_password,
-      first_name: "_",
-      last_name: "_",
     };
     console.log("Final payload to backend:", JSON.stringify(payload, null, 2));
 
@@ -69,7 +67,7 @@ export default function CreateAccountForm() {
 
     try {
       let res = await dispatch(authRegistration(payload)).unwrap();
-      
+
       console.log("Registration response:", res);
       const emailToStore=res?.user?.email||payload.email;
       console.log("Storing email for OTP:", emailToStore);
@@ -227,7 +225,7 @@ export default function CreateAccountForm() {
               {/* Sign In */}
               <p className="already-account">
                 Already have an account?
-                <Link href="/auth/signin" className="signin-link">
+                <Link href="/pages/auth/signin" className="signin-link">
                   Sign In
                 </Link>
               </p>

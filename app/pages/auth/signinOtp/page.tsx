@@ -1,28 +1,27 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import "../../../../styles/otp/otp.css";
+import "../../../../styles/signinOtp/signinOtp.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { authOtp } from "@/redux/slice/authSlice";
+import { authLoginOtp } from "@/redux/slice/authSlice";
 
-
-export default function OtpPage() {
+export default function LoginOtpPage() {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { email, isOtpverified } = useSelector((state: any) => state.auth);
 
-  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
-    const id = localStorage.getItem("Id");
-    if (id) {
-      setUserId(id);
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
     }
   }, []);
 
   const handleChange = (index: number, value: string) => {
-    if (!/^\d?$/.test(value)) return; // allow only numbers
+    if (!/^\d?$/.test(value)) return;
 
     if (value && index < 5) {
       inputsRef.current[index + 1]?.focus();
@@ -38,60 +37,37 @@ export default function OtpPage() {
       inputsRef.current[index - 1]?.focus();
     }
   };
-  const getOtpValue = () => {
-    return inputsRef.current.map((input) => input?.value || "").join("");
-  };
 
-  const [userEmail, setUserEmail] = useState("");
+  const getOtpValue = () =>
+    inputsRef.current.map((input) => input?.value || "").join("");
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("otp_email");
-    console.log("EMAIL FROM STORAGE:", storedEmail); // 🔥 DEBUG
-    if (storedEmail) {
-      setUserEmail(storedEmail);
-    }
-  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const otpValue = getOtpValue();
+    const otpValue = getOtpValue();
 
-  if (otpValue.length !== 6) {
-    toast.error("Please enter 6-digit OTP");
-    return;
-  }
-
-  // ✅ USE localStorage email
-  if (!userEmail) {
-    toast.error("User not found. Please register again.");
-    return;
-  }
-
-  const payload = {
-    email: userEmail,
-    otp: otpValue,
-  };
-  console.log("OTP VERIFY PAYLOAD:", payload);
-
-
-  try {
-    const result = await dispatch(authOtp(payload)).unwrap();
-
-    console.log("OTP API response:", result); 
-    if (result?.message) {
-      toast.success("OTP verified successfully");
-      router.push("/pages/auth/signin");
-    } else {
-      toast.error(result?.message || "Invalid OTP");
+    if (otpValue.length !== 6) {
+      toast.error("Please enter 6-digit OTP");
+      return;
     }
-  } catch (error: any) {
-    console.error("OTP error:", error); 
-    toast.error(error?.message || "OTP verification failed");
-  }
-};
 
+    if (!email) {
+      toast.error("Email not found. Please login again.");
+      return;
+    }
 
-  
+    try {
+      const result = await dispatch(
+        authLoginOtp({ email, otp: otpValue })
+      ).unwrap();
+
+      if (result?.message) {
+        router.push("/"); // ✅ home/dashboard
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "OTP failed");
+    }
+  };
 
   return (
     <div className="otp-page">
@@ -100,11 +76,11 @@ export default function OtpPage() {
 
       <div className="otp-wrapper">
         <div className="otp-card">
-          <h2>OTP Verification</h2>
+          <h2>Login OTP Verification</h2>
 
           <p>
             Enter the 6 digit OTP sent to <br />
-            <strong>{email || "your email"}</strong>
+            <strong>{email}</strong>
           </p>
 
           <form onSubmit={handleSubmit}>
@@ -112,9 +88,7 @@ export default function OtpPage() {
               {Array.from({ length: 6 }).map((_, i) => (
                 <input
                   key={i}
-                  ref={(el) => {
-                    inputsRef.current[i] = el;
-                  }}
+                  ref={(el) => {(inputsRef.current[i] = el)}}
                   type="text"
                   maxLength={1}
                   inputMode="numeric"
