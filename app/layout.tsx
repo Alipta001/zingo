@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Providers from "@/redux/store/provider";
 import "./globals.css";
-
-
-
+import { Toaster } from "sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,10 +28,18 @@ export default function RootLayout({
       <link rel="preload" href="/_next/static/css/app.css" as="style" />
 <meta name="theme-color" content="#ffffff" />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Providers>
-            {children}
-          </Providers>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Providers>
+          {children}
+           <Toaster 
+            position="top-right" 
+            richColors 
+            closeButton 
+            duration={4000} 
+          />
+        </Providers>
+      
       </body>
     </html>
   );

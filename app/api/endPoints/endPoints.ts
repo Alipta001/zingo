@@ -1,7 +1,9 @@
 let endPoints = {
     auth:{
-        signup:`/users-api/register`,
-        signin:`/users-api/login`,
+        signup:`/users-api/register/`,
+        signin:`/users-api/login/`,
+        otp:`/users-api/register/verify-otp/`,
+        signinOtp:`/users-api/login/verify-otp/`,
     },
     resturant:{
         resturant: `/restaurants-api/get_restaurant`,
@@ -13,7 +15,12 @@ let endPoints = {
         searchItem:`/menuItems-api/search_api/`
     },
     cart:{
-        add : `/cart-api/add`
+        add : `/cart-api/add`,
+        view:`/cart-api/view/`,
+        calculate:`/cart-api/calculate-total/`,
+        remove:`/cart-api/remove-item/`,
+        clear:`/cart-api/clear-cart/`
+
     },
     
     order:{

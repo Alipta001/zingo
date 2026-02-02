@@ -9,26 +9,23 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { authRegistration } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { toast } from "sonner";
 
 /* ================== Yup Schema ================== */
 const schema = yup.object().shape({
   role: yup.string().required("Please select a role"),
-  name: yup.string().required("Name is required").min(2),
+  username: yup.string().required("Name is required").min(2),
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
 
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .required("Confirm Password is required")
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
-    terms: yup
-  .boolean()
-  .oneOf([true], "You must accept the terms & conditions"),
-
+    .oneOf([yup.ref("password")], "Passwords must match"),
+  terms: yup.boolean().oneOf([true], "You must accept the terms & conditions"),
 });
 
 export default function Page() {
@@ -48,27 +45,44 @@ export default function Page() {
   });
 
   const handleClick = async (data) => {
-    const formData = new FormData();
-    formData.append("role", data.role);
 
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("confirmPassword", data.confirmPassword);
-    console.log("Form Data:", data);
+  
+    const mapRole = {
+      user: "customer",
+      admin: "admin",
+      delivery: "delivery_partner",
+    };
+    const payload = {
+      role: mapRole[data.role] || "customer",
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      confirm_password: data.confirm_password,
+    };
+    console.log("Final payload to backend:", JSON.stringify(payload, null, 2));
+
+    console.log("JSON Payload:", payload);
 
     try {
-      let res = await dispatch(authRegistration(formData)).unwrap();
-      if (res.success) {
-        localStorage.setItem("Id", res.user.id);
-        router.push("/auth/otp");
+      let res = await dispatch(authRegistration(payload)).unwrap();
 
+      console.log("Registration response:", res);
+      const emailToStore=res?.user?.email||payload.email;
+      console.log("Storing email for OTP:", emailToStore);
+      localStorage.setItem("otp_email", emailToStore);
+      console.log("Email stored for OTP:", localStorage.getItem("otp_email"));
+
+
+      if (res?.message) {
+      toast.success(res.message);
+
+        router.push("/pages/auth/otp");
       } else {
         router.push("/auth/signup");
       }
     } catch (error) {}
   };
-  console.log("FORM ERRORS 👉", errors);
+  // console.log("FORM ERRORS 👉", errors);
 
   return (
     <section className="customer-acc-sec">
@@ -106,9 +120,11 @@ export default function Page() {
                 <input
                   type="text"
                   placeholder="Enter Your Name"
-                  {...register("name")}
+                  {...register("username")}
                 />
-                {errors.name && <p className="error">{errors.name.message}</p>}
+                {errors.username && (
+                  <p className="error">{errors.username.message}</p>
+                )}
               </div>
 
               {/* Email */}
@@ -155,7 +171,7 @@ export default function Page() {
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirm your password"
                     autoComplete="new-password"
-                    {...register("confirmPassword")}
+                    {...register("confirm_password")}
                   />
                   <button
                     type="button"
@@ -167,8 +183,8 @@ export default function Page() {
                     />
                   </button>
                 </div>
-                {errors.confirmPassword && (
-                  <p className="error">{errors.confirmPassword.message}</p>
+                {errors.confirm_password && (
+                  <p className="error">{errors.confirm_password.message}</p>
                 )}
               </div>
 
@@ -207,7 +223,7 @@ export default function Page() {
               {/* Sign In */}
               <p className="already-account">
                 Already have an account?
-                <Link href="/auth/signIn" className="signin-link">
+                <Link href="/pages/auth/signin" className="signin-link">
                   Sign In
                 </Link>
               </p>
