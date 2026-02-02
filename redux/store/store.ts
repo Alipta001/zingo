@@ -22,6 +22,7 @@ import cartSlice from "../slice/cartSlice";
 import filterSlice from "../slice/filterSlice";
 import contactSlice from "../slice/contactSlice";
 import authSlice from "../slice/authSlice";
+import adminViewSlice from "../slice/adminViewSlice";
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     showDataOnScreen: showDataOnScreenSlice.reducer,
     filters: filterSlice.reducer,
     contact: contactSlice.reducer,
+    adminView: adminViewSlice.reducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

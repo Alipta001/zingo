@@ -19,7 +19,7 @@ export default function ResturantsSection() {
   useEffect(() => {
     dispatch(resturantList());
   }, [dispatch]);
-
+console.log(resturants);
   if (loading)
     return (
       <div className="py-20 text-center font-bold text-gray-400 animate-pulse">
