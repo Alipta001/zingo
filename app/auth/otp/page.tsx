@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import "../../../../styles/otp/otp.css";
+import "@/styles/otp/otp.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -46,7 +46,7 @@ export default function OtpPage() {
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("otp_email");
-    console.log("EMAIL FROM STORAGE:", storedEmail); // 🔥 DEBUG
+    console.log("EMAIL FROM STORAGE:", storedEmail);
     if (storedEmail) {
       setUserEmail(storedEmail);
     }
@@ -80,7 +80,7 @@ export default function OtpPage() {
     console.log("OTP API response:", result); 
     if (result?.message) {
       toast.success("OTP verified successfully");
-      router.push("/pages/auth/signin");
+      router.push("/auth/signIn");
     } else {
       toast.error(result?.message || "Invalid OTP");
     }

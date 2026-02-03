@@ -91,7 +91,7 @@ export const addToCart = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.post(
-        `${endPoints.cart.add}/`,
+        `${endPoints.cart.add}`,
         payload,
       );
       console.log(response);

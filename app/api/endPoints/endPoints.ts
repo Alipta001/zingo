@@ -7,7 +7,7 @@ let endPoints = {
     },
     resturant:{
         resturant: `/restaurants-api/get_restaurant`,
-        resturantList: `/restaurants-api/restuarents_list`,
+        resturantList: `/restaurants-api/restuarents_list/`,
         searchResturant: `/restaurants-api/search`
     },
     menu:{
@@ -15,7 +15,7 @@ let endPoints = {
         searchItem:`/menuItems-api/search_api/`
     },
     cart:{
-        add : `/cart-api/add`,
+        add : `/cart-api/add/`,
         view:`/cart-api/view/`,
         calculate:`/cart-api/calculate-total/`,
         remove:`/cart-api/remove-item/`,

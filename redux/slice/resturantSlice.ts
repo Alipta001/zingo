@@ -36,58 +36,62 @@ const resturantSlice = createSlice({
 } 
 )
 export default resturantSlice; */
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AxiosInstance from "@/app/api/axios/axios";
 import endPoints from "@/app/api/endPoints/endPoints";
 
 const initialState = {
- list:{
-data: [],
-  loading: false,
-  error: null,
- },
- details:{
-  data: {},
-  loading: false,
-  error: null
- }
+  list: {
+    data: [],
+    loading: false,
+    error: null,
+  },
+  details: {
+    data: {},
+    loading: false,
+    error: null
+  }
 };
 
+// --- Fetch All Restaurants ---
 export const resturantList = createAsyncThunk(
-  "resturant",
+  "resturants/resturantList", // Consistent naming
   async (_, { rejectWithValue }) => {
     try {
-      const response = await AxiosInstance.get(
-        endPoints.resturant.resturantList,
-      );
-      console.log(response);
+      const response = await AxiosInstance.get(endPoints.resturant.resturantList);
       return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch (error: any) {
+      // Return the specific error message from the backend (like "Token expired")
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   },
 );
 
-export const fetchResturantById = createAsyncThunk("resturantById", async(id, { rejectWithValue })=>{
-  try{
-    const response = await AxiosInstance.get(`${endPoints.resturant.resturant}/${id}`)
-    console.log(response)
-    return response.data
-  }catch(error){
-     return rejectWithValue(error.message);
+// --- Fetch Restaurant Details ---
+export const fetchResturantById = createAsyncThunk(
+  "resturants/fetchResturantById",
+  async (id: string | number, { rejectWithValue }) => {
+    try {
+      const response = await AxiosInstance.get(`${endPoints.resturant.resturant}/${id}/`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
-})
+);
 
-export const searchByResturant = createAsyncThunk("searchResturant", async(value,{rejectWithValue})=>{
-  try{
-    const response = await AxiosInstance.get(`${endPoints.resturant.searchResturant}/?q=${value}`)
-    console.log(response)
-    return response.data
-  }catch(error){
-    return rejectWithValue(error.message)
+// --- Search Restaurants ---
+export const searchByResturant = createAsyncThunk(
+  "resturants/searchByResturant",
+  async (value: string, { rejectWithValue }) => {
+    try {
+      const response = await AxiosInstance.get(`${endPoints.resturant.searchResturant}/?q=${value}`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
-})
+);
 
 const resturantSlice = createSlice({
   name: "resturants",
@@ -95,6 +99,7 @@ const resturantSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // Restaurant List
       .addCase(resturantList.pending, (state) => {
         state.list.loading = true;
         state.list.error = null;
@@ -105,9 +110,10 @@ const resturantSlice = createSlice({
       })
       .addCase(resturantList.rejected, (state, action) => {
         state.list.loading = false;
-        state.list.error = action.payload;
+        state.list.error = action.payload as string;
       })
 
+      // Restaurant Details
       .addCase(fetchResturantById.pending, (state) => {
         state.details.loading = true;
         state.details.error = null;
@@ -118,21 +124,21 @@ const resturantSlice = createSlice({
       })
       .addCase(fetchResturantById.rejected, (state, action) => {
         state.details.loading = false;
-        state.details.error = action.payload;
+        state.details.error = action.payload as string;
       })
 
-      //search addcase
+      // Search Logic
       .addCase(searchByResturant.pending, (state) => {
-        state.details.loading = true;
-        state.details.error = null;
+        state.list.loading = true; // Use list loading for search results
+        state.list.error = null;
       })
       .addCase(searchByResturant.fulfilled, (state, action) => {
-        state.details.loading = false;
-        state.details.data = Array.isArray(action.payload)? action.payload: action.payload.data || [];
+        state.list.loading = false;
+        state.list.data = Array.isArray(action.payload) ? action.payload : action.payload.data || [];
       })
       .addCase(searchByResturant.rejected, (state, action) => {
-        state.details.loading = false;
-        state.details.error = action.payload || {};
+        state.list.loading = false;
+        state.list.error = action.payload as string;
       });
   },
 });

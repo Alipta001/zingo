@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import "../../../../styles/signinOtp/signinOtp.css";
+import "../../../styles/signinOtp/signinOtp.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

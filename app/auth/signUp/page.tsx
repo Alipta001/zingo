@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { authRegistration } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useState } from "react";
 
 /* ================== Yup Schema ================== */
 const schema = yup.object().shape({
@@ -76,9 +77,9 @@ export default function Page() {
       if (res?.message) {
       toast.success(res.message);
 
-        router.push("/pages/auth/otp");
+        router.push("/auth/otp");
       } else {
-        router.push("/auth/signup");
+        router.push("/auth/signUp");
       }
     } catch (error) {}
   };
