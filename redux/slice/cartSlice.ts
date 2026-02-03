@@ -380,33 +380,271 @@
 // export const { incrementQuantity, decrementQuantity } = cartSlice.actions;
 // export default cartSlice.reducer;
 
+// import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import AxiosInstance from "@/app/api/axios/axios";
+// import endPoints from "@/app/api/endPoints/endPoints";
+
+// interface CartState {
+//   data: any[];
+//   loading: false | true;
+//   error: string | null;
+//   total: number;
+// }
+
+// // ===================== Helper Functions =====================
+// const calculateTotal = (items: any[]) => {
+//   if (!Array.isArray(items)) return 0;
+//   return items.reduce((sum, item) => {
+//     // Check for nested menu_item price if DRF returns full objects
+//     const price = Number(item.price || item.menu_item?.price) || 0;
+//     const qty = Number(item.quantity) || 0;
+//     return sum + price * qty;
+//   }, 0);
+// };
+
+// const ensureArray = (payload: any) => {
+//   if (Array.isArray(payload)) return payload;
+//   if (payload?.items && Array.isArray(payload.items)) return payload.items;
+//   if (payload?.data && Array.isArray(payload.data)) return payload.data;
+//   return [];
+// };
+
+// const initialState: CartState = {
+//   data: [],
+//   loading: false,
+//   error: null,
+//   total: 0,
+// };
+
+// // ===================== Thunks =====================
+
+// export const addToCart = createAsyncThunk(
+//   "cart/addToCart",
+//   async (payload: { menu_item_id: number; quantity: number }, { rejectWithValue }) => {
+//     try {
+//       // AxiosInstance interceptor handles the Authorization header
+//       const response = await AxiosInstance.post(endPoints.cart.add, payload);
+//       return response.data;
+//     } catch (error: any) {
+//       const message = error.response?.data?.detail || error.response?.data?.message || "Auth Required";
+//       return rejectWithValue(message);
+//     }
+//   }
+// );
+
+// export const fetchCart = createAsyncThunk(
+//   "cart/fetchCart",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const res = await AxiosInstance.get(endPoints.cart.view);
+//       return res.data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.response?.data?.detail || "Session Expired");
+//     }
+//   }
+// );
+
+// // ===================== Slice =====================
+// const cartSlice = createSlice({
+//   name: "cart",
+//   initialState,
+//   reducers: {
+//     // Local UI updates for snappy feel
+//     updateLocalQty: (state, action: PayloadAction<{ id: number; qty: number }>) => {
+//       const item = state.data.find((i) => i.menu_item_id === action.payload.id);
+//       if (item) item.quantity = action.payload.qty;
+//       state.total = calculateTotal(state.data);
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder
+//       // Add To Cart
+//       .addCase(addToCart.pending, (state) => {
+//         state.loading = true;
+//         state.error = null;
+//       })
+//       .addCase(addToCart.fulfilled, (state, action) => {
+//         state.loading = false;
+//         // Usually, the backend returns the updated full cart list
+//         state.data = ensureArray(action.payload);
+//         state.total = calculateTotal(state.data);
+//       })
+//       .addCase(addToCart.rejected, (state, action) => {
+//         state.loading = false;
+//         state.error = action.payload as string;
+//       })
+
+//       // Fetch Cart
+//       .addCase(fetchCart.fulfilled, (state, action) => {
+//         state.data = ensureArray(action.payload);
+//         state.total = calculateTotal(state.data);
+//       });
+//   },
+// });
+
+// export const { updateLocalQty } = cartSlice.actions;
+// export default cartSlice.reducer;
+
+// import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import AxiosInstance from "@/app/api/axios/axios";
+// import endPoints from "@/app/api/endPoints/endPoints";
+
+// interface CartState {
+//   data: any[];
+//   loading: boolean;
+//   error: string | null;
+//   total: number;
+// }
+
+// // ===================== Helper Functions =====================
+// const calculateTotal = (items: any[]) => {
+//   if (!Array.isArray(items)) return 0;
+//   return items.reduce((sum, item) => {
+//     const price = Number(item.price || item.menu_item?.price) || 0;
+//     const qty = Number(item.quantity) || 0;
+//     return sum + price * qty;
+//   }, 0);
+// };
+
+// const ensureArray = (payload: any) => {
+//   if (Array.isArray(payload)) return payload;
+//   if (payload?.items && Array.isArray(payload.items)) return payload.items;
+//   if (payload?.data && Array.isArray(payload.data)) return payload.data;
+//   return [];
+// };
+
+// const initialState: CartState = {
+//   data: [],
+//   loading: false,
+//   error: null,
+//   total: 0,
+// };
+
+// // ===================== Thunks =====================
+
+// export const addToCart = createAsyncThunk(
+//   "cart/addToCart",
+//   async (payload: { menu_item_id: number; quantity: number }, { rejectWithValue }) => {
+//     try {
+//       const response = await AxiosInstance.post(endPoints.cart.add, payload);
+//       return response.data;
+//     } catch (error: any) {
+//       const message = error.response?.data?.detail || error.response?.data?.message || "Auth Required";
+//       return rejectWithValue(message);
+//     }
+//   }
+// );
+
+// export const fetchCart = createAsyncThunk(
+//   "cart/fetchCart",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const res = await AxiosInstance.get(endPoints.cart.view);
+//       return res.data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.response?.data?.detail || "Session Expired");
+//     }
+//   }
+// );
+
+// // ===================== Slice =====================
+// const cartSlice = createSlice({
+//   name: "cart",
+//   initialState,
+//   reducers: {
+//     // Updates a specific quantity manually
+//     updateLocalQty: (state, action: PayloadAction<{ id: number; qty: number }>) => {
+//       const item = state.data.find((i) => i.menu_item_id === action.payload.id);
+//       if (item) item.quantity = action.payload.qty;
+//       state.total = calculateTotal(state.data);
+//     },
+
+//     // Increment quantity by 1
+//     incrementQuantity: (state, action: PayloadAction<number>) => {
+//       const item = state.data.find((i) => i.menu_item_id === action.payload);
+//       if (item) {
+//         item.quantity += 1;
+//       }
+//       state.total = calculateTotal(state.data);
+//     },
+
+//     // Decrement quantity by 1 (minimum 1)
+//     decrementQuantity: (state, action: PayloadAction<number>) => {
+//       const item = state.data.find((i) => i.menu_item_id === action.payload);
+//       if (item && item.quantity > 1) {
+//         item.quantity -= 1;
+//       }
+//       state.total = calculateTotal(state.data);
+//     },
+
+//     // Remove item from local state
+//     removeItem: (state, action: PayloadAction<number>) => {
+//       state.data = state.data.filter((i) => i.menu_item_id !== action.payload);
+//       state.total = calculateTotal(state.data);
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder
+//       // Add To Cart
+//       .addCase(addToCart.pending, (state) => {
+//         state.loading = true;
+//         state.error = null;
+//       })
+//       .addCase(addToCart.fulfilled, (state, action) => {
+//         state.loading = false;
+//         state.data = ensureArray(action.payload);
+//         state.total = calculateTotal(state.data);
+//       })
+//       .addCase(addToCart.rejected, (state, action) => {
+//         state.loading = false;
+//         state.error = action.payload as string;
+//       })
+
+//       // Fetch Cart
+//       .addCase(fetchCart.fulfilled, (state, action) => {
+//         state.data = ensureArray(action.payload);
+//         state.total = calculateTotal(state.data);
+//       });
+//   },
+// });
+
+// // Export all actions used by cartItem.tsx
+// export const { 
+//   updateLocalQty, 
+//   incrementQuantity, 
+//   decrementQuantity, 
+//   removeItem 
+// } = cartSlice.actions;
+
+// export default cartSlice.reducer;
+
+
+"use client";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import AxiosInstance from "@/app/api/axios/axios";
 import endPoints from "@/app/api/endPoints/endPoints";
 
 interface CartState {
   data: any[];
-  loading: false | true;
+  loading: boolean;
   error: string | null;
   total: number;
 }
 
-// ===================== Helper Functions =====================
-const calculateTotal = (items: any[]) => {
-  if (!Array.isArray(items)) return 0;
-  return items.reduce((sum, item) => {
-    // Check for nested menu_item price if DRF returns full objects
-    const price = Number(item.price || item.menu_item?.price) || 0;
-    const qty = Number(item.quantity) || 0;
-    return sum + price * qty;
-  }, 0);
-};
+// ===================== Helpers =====================
 
-const ensureArray = (payload: any) => {
-  if (Array.isArray(payload)) return payload;
-  if (payload?.items && Array.isArray(payload.items)) return payload.items;
-  if (payload?.data && Array.isArray(payload.data)) return payload.data;
-  return [];
+/**
+ * MAPPING NOTE: 
+ * Your API response returns: { cart_items: Array(2), total_amount: 1150 }
+ */
+const extractCartData = (payload: any) => {
+  if (!payload) return { items: [], total: 0 };
+  
+  // If the payload itself is the cart object
+  const items = payload.cart_items || [];
+  const total = payload.total_amount || 0;
+  
+  return { items, total };
 };
 
 const initialState: CartState = {
@@ -418,69 +656,94 @@ const initialState: CartState = {
 
 // ===================== Thunks =====================
 
+export const fetchCart = createAsyncThunk("cart/fetchCart", async (_, { rejectWithValue }) => {
+  try {
+    const res = await AxiosInstance.get(endPoints.cart.view);
+    console.log("📥 API Response:", res.data);
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data?.detail || "Failed to load cart");
+  }
+});
+
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (payload: { menu_item_id: number; quantity: number }, { rejectWithValue }) => {
     try {
-      // AxiosInstance interceptor handles the Authorization header
       const response = await AxiosInstance.post(endPoints.cart.add, payload);
-      return response.data;
+      return response.data; 
     } catch (error: any) {
-      const message = error.response?.data?.detail || error.response?.data?.message || "Auth Required";
-      return rejectWithValue(message);
+      return rejectWithValue(error.response?.data?.detail || "Auth Required");
     }
   }
 );
 
-export const fetchCart = createAsyncThunk(
-  "cart/fetchCart",
-  async (_, { rejectWithValue }) => {
+export const removeItemFromApi = createAsyncThunk(
+  "cart/removeItem",
+  async (itemId: number, { rejectWithValue }) => {
     try {
-      const res = await AxiosInstance.get(endPoints.cart.view);
-      return res.data;
+      const response = await AxiosInstance.post(endPoints.cart.remove, { menu_item_id: itemId });
+      return response.data; 
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.detail || "Session Expired");
+      return rejectWithValue(error.response?.data?.detail || "Could not remove item");
     }
   }
 );
+
+export const clearCartApi = createAsyncThunk("cart/clearCart", async (_, { rejectWithValue }) => {
+  try {
+    await AxiosInstance.post(endPoints.cart.clear);
+    return [];
+  } catch (error: any) {
+    return rejectWithValue("Failed to clear cart");
+  }
+});
 
 // ===================== Slice =====================
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // Local UI updates for snappy feel
-    updateLocalQty: (state, action: PayloadAction<{ id: number; qty: number }>) => {
-      const item = state.data.find((i) => i.menu_item_id === action.payload.id);
-      if (item) item.quantity = action.payload.qty;
-      state.total = calculateTotal(state.data);
-    },
+    resetCartError: (state) => {
+      state.error = null;
+    }
   },
   extraReducers: (builder) => {
     builder
-      // Add To Cart
-      .addCase(addToCart.pending, (state) => {
-        state.loading = true;
+      /* Fetch Cart */
+      .addCase(fetchCart.pending, (state) => { 
+        state.loading = true; 
         state.error = null;
       })
-      .addCase(addToCart.fulfilled, (state, action) => {
+      .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
-        // Usually, the backend returns the updated full cart list
-        state.data = ensureArray(action.payload);
-        state.total = calculateTotal(state.data);
+        const { items, total } = extractCartData(action.payload);
+        state.data = items;
+        state.total = total;
       })
-      .addCase(addToCart.rejected, (state, action) => {
+      .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
+      
+      /* Add / Update / Remove (Assuming API returns the full updated cart object) */
+      .addMatcher(
+        (action) => [addToCart.fulfilled.type, removeItemFromApi.fulfilled.type].includes(action.type),
+        (state, action: any) => {
+          state.loading = false;
+          const { items, total } = extractCartData(action.payload);
+          state.data = items;
+          state.total = total;
+        }
+      )
 
-      // Fetch Cart
-      .addCase(fetchCart.fulfilled, (state, action) => {
-        state.data = ensureArray(action.payload);
-        state.total = calculateTotal(state.data);
+      /* Clear Cart */
+      .addCase(clearCartApi.fulfilled, (state) => {
+        state.data = [];
+        state.total = 0;
       });
   },
 });
 
-export const { updateLocalQty } = cartSlice.actions;
+export const { resetCartError } = cartSlice.actions;
 export default cartSlice.reducer;
