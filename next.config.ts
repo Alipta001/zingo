@@ -13,7 +13,12 @@ const nextConfig = {
         port: '8000',
         pathname: '/media/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.wikimedia.org',
+      },
     ],
+    unoptimized: true, // Disable image optimization for external URLs
   },
   typescript: {
     ignoreBuildErrors: true,

@@ -76,10 +76,10 @@ export default function Page() {
 
       if (res?.message) {
       toast.success(res.message);
-
-        router.push("/auth/otp");
+        // Redirect to OTP verification page with email stored
+        router.push("/app/auth/otp");
       } else {
-        router.push("/auth/signUp");
+        router.push("/app/auth/signUp");
       }
     } catch (error) {}
   };

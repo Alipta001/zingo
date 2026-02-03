@@ -129,7 +129,6 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { resturantList } from "@/redux/slice/resturantSlice";
 import { BaseURL } from "@/app/api/axios/axios";
-import Image from "next/image";
 import { Star } from "lucide-react";
 import styles from "../../../styles/resturantPage/similarResturantCard/similarResturantCard.module.css";
 
@@ -213,14 +212,11 @@ export default function SimilarResturantCard() {
             >
               {/* IMAGE WRAPPER */}
               <div className="relative overflow-hidden h-[190px] sm:h-[165px]">
-                <Image
+                <img
                   src={firstImage}
                   alt={res.name}
-                  unoptimized
-                  fill
-                  sizes="(max-width: 640px) 300px, 260px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  priority={i < 4}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading={i < 4 ? "eager" : "lazy"}
                 />
 
                 <span className="absolute top-3 left-3 z-10 bg-gradient-to-br from-orange-500 to-pink-600 text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md">

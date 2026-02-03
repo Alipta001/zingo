@@ -30,10 +30,11 @@ export default function RestaurantSection() {
     useSelector((state: any) => state.filters?.selectedCuisines) || [];
   const selectedRating =
     useSelector((state: any) => state.filters?.selectedRating) || null;
-console.log("Current Token in Cookie:", document.cookie.split('; ').find(row => row.startsWith('token=')));
+
   // --- FETCH DATA ---
   useEffect(() => {
     dispatch(resturantList());
+    console.log("Current Token in Cookie:", document.cookie.split('; ').find(row => row.startsWith('token=')));
   }, [dispatch]);
 
   // --- FILTER LOGIC ---

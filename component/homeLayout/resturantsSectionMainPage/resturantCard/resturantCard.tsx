@@ -165,7 +165,7 @@
 
 "use client";
 import React from "react";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 import { BaseURL } from "@/app/api/axios/axios";
 import { Clock, MapPin, Star } from "lucide-react";
@@ -196,12 +196,10 @@ export default function RestaurantCard({
     >
       {/* IMAGE SECTION */}
       <div className="relative h-60 sm:h-72 w-full rounded-[32px] overflow-hidden flex-shrink-0 bg-slate-100">
-        <Image
+        <img
           src={coverImage}
           alt={res.name}
-          fill
-          unoptimized
-          className="object-cover transition-transform duration-1000 scale-105 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-1000 scale-105 group-hover:scale-110"
           loading="lazy"
         />
 

@@ -182,12 +182,26 @@ export const resturantList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get(endPoints.resturant.resturantList);
+      
+      // ✅ Validate response
+      if (!response?.data) {
+        return rejectWithValue("Invalid response from server");
+      }
+      
       return response.data;
     } catch (error: any) {
-      // Logic to capture the 401 specifically
-      const message = error.response?.status === 401 
-        ? "Session expired. Please login again." 
-        : (error.response?.data?.message || error.message);
+      // ✅ Improved error extraction
+      let message = "Failed to fetch restaurants";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (error.detail) {
+        message = error.detail;
+      } else if (error.data?.message) {
+        message = error.data.message;
+      }
+
+      console.error("Restaurant List Error:", message);
       return rejectWithValue(message);
     }
   },
@@ -198,12 +212,29 @@ export const fetchResturantById = createAsyncThunk(
   "resturants/fetchResturantById",
   async (id: string | number, { rejectWithValue }) => {
     try {
+      if (!id) {
+        return rejectWithValue("Restaurant ID is required");
+      }
+
       const response = await AxiosInstance.get(`${endPoints.resturant.resturant}/${id}/`);
+      
+      if (!response?.data) {
+        return rejectWithValue("Invalid response from server");
+      }
+
       return response.data;
     } catch (error: any) {
-      const message = error.response?.status === 401 
-        ? "Unauthorized access. Please login." 
-        : (error.response?.data?.message || "Restaurant not found");
+      let message = "Failed to fetch restaurant details";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (error.detail) {
+        message = error.detail;
+      } else if (error.data?.message) {
+        message = error.data.message;
+      }
+
+      console.error("Restaurant Details Error:", message);
       return rejectWithValue(message);
     }
   }
@@ -214,10 +245,30 @@ export const searchByResturant = createAsyncThunk(
   "resturants/searchByResturant",
   async (value: string, { rejectWithValue }) => {
     try {
+      if (!value || value.trim().length === 0) {
+        return rejectWithValue("Search query cannot be empty");
+      }
+
       const response = await AxiosInstance.get(`${endPoints.resturant.searchResturant}/?q=${value}`);
+      
+      if (!response?.data) {
+        return rejectWithValue("Invalid response from server");
+      }
+
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      let message = "Search failed";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (error.detail) {
+        message = error.detail;
+      } else if (error.data?.message) {
+        message = error.data.message;
+      }
+
+      console.error("Restaurant Search Error:", message);
+      return rejectWithValue(message);
     }
   }
 );
