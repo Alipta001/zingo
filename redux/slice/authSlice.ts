@@ -215,6 +215,50 @@ const initialState = {
   error: null,
 };
 
+// ---------------- Registration Request ----------------
+export const authRegistration = createAsyncThunk(
+  "auth/authRegistration",
+  async (payload: { username: string; email: string; password: string; role?: string }, { rejectWithValue }) => {
+    try {
+      const res = await AxiosInstance.post(endPoints.auth.signup, payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || { message: "Registration failed" });
+    }
+  }
+);
+
+// ---------------- Verify Registration OTP (Step 2) ----------------
+export const authOtp = createAsyncThunk(
+  "auth/authOtp",
+  async (payload: { email: string; otp: string }, { rejectWithValue }) => {
+    try {
+      const response = await AxiosInstance.post(
+        endPoints.auth.otp,
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      // Extract token if provided
+      const token = response.data?.token || response.data?.access || response.data?.access_token;
+      
+      if (token) {
+        cookies.set("token", token, { 
+          path: "/", 
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+          sameSite: "lax",
+        });
+      }
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || { message: "OTP verification failed" });
+    }
+  }
+);
+
 // ---------------- Login Request (Step 1) ----------------
 export const authLogin = createAsyncThunk(
   "auth/authLogin",
@@ -278,6 +322,44 @@ const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    // --- Registration ---
+    builder
+      .addCase(authRegistration.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(authRegistration.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        if (payload?.status === true || payload?.message?.includes("successful")) {
+          const email = payload?.email || payload?.user?.email || "";
+          state.email = email;
+          if (email) localStorage.setItem("email", email);
+          toast.success(payload?.message || "Registration successful! Please verify OTP");
+        }
+      })
+      .addCase(authRegistration.rejected, (state, { payload }: any) => {
+        state.loading = false;
+        toast.error(payload?.message || "Registration failed");
+      });
+
+    // --- REGISTRATION OTP (Step 2) ---
+    builder
+      .addCase(authOtp.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(authOtp.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        if (payload?.status === true || payload?.token || payload?.access) {
+          state.isOtpverified = true;
+          toast.success(payload?.message || "OTP verified successfully!");
+        } else {
+          toast.error(payload?.message || "Invalid OTP");
+        }
+      })
+      .addCase(authOtp.rejected, (state, { payload }: any) => {
+        state.loading = false;
+        toast.error(payload?.message || "OTP verification failed");
+      });
+
     // --- Login (Step 1) ---
     builder
       .addCase(authLogin.pending, (state) => {

@@ -85,6 +85,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "@/app/api/axios/axios";
 import { Plus, Minus, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
 // Import your specific Redux actions
 import { decrement, increment } from "@/redux/slice/showSlice";
 import { addToCart } from "@/redux/slice/cartSlice";
@@ -105,6 +106,7 @@ export function MenuCard({ id, name, items, rating, time, img, price, userId }) 
       quantity: count,
     };
     dispatch(addToCart(payload) as any);
+    toast.success(`Added ${name} (qty: ${count}) to cart!`);
   };
 
   return (

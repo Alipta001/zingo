@@ -149,7 +149,6 @@
 // }
 
 
-import Image from "next/image";
 import styles from "../../../styles/resturantList/resturantCard/resturantCard.module.css"
 import { BaseURL } from "@/app/api/axios/axios";
 
@@ -170,13 +169,10 @@ export default function RestaurantCard({ item }: { item: any }) {
     >
       {/* IMAGE SECTION */}
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
-        <Image
+        <img
           src={firstImage}
           alt={altText}
-          fill
-          unoptimized
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-800 ease-in-out group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-800 ease-in-out group-hover:scale-110"
           loading="lazy"
         />
 

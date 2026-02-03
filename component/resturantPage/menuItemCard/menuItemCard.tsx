@@ -173,6 +173,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "@/app/api/axios/axios";
+import { toast } from "sonner";
 import { decrement, increment } from "@/redux/slice/showSlice";
 import { addToCart } from "@/redux/slice/cartSlice";
 
@@ -196,6 +197,7 @@ export default function MenuItemCard({ item, userId }) {
       quantity: count,
     };
     dispatch(addToCart(payload));
+    toast.success(`Added ${item.name} (qty: ${count}) to cart!`);
   };
 
   return (

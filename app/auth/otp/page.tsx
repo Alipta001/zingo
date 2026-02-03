@@ -4,7 +4,7 @@ import "@/styles/otp/otp.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { authOtp } from "@/redux/slice/authSlice";
+import { authOtp, authLoginOtp } from "@/redux/slice/authSlice";
 
 
 export default function OtpPage() {
@@ -14,10 +14,17 @@ export default function OtpPage() {
   const { email, isOtpverified } = useSelector((state: any) => state.auth);
 
   const [userId, setUserId] = useState("");
+  const [otpType, setOtpType] = useState<"registration" | "login">("registration"); // Track OTP type
+
   useEffect(() => {
     const id = localStorage.getItem("Id");
     if (id) {
       setUserId(id);
+    }
+    // Determine if this is registration or login OTP
+    const isLoginFlow = localStorage.getItem("isLoginFlow");
+    if (isLoginFlow === "true") {
+      setOtpType("login");
     }
   }, []);
 
@@ -45,12 +52,14 @@ export default function OtpPage() {
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("otp_email");
+    // Try both storage keys
+    const storedEmail = localStorage.getItem("otp_email") || localStorage.getItem("email");
     console.log("EMAIL FROM STORAGE:", storedEmail);
     if (storedEmail) {
       setUserEmail(storedEmail);
     }
   }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -73,14 +82,19 @@ export default function OtpPage() {
   };
   console.log("OTP VERIFY PAYLOAD:", payload);
 
-
   try {
-    const result = await dispatch(authOtp(payload)).unwrap();
+    // Choose the right thunk based on OTP type
+    const thunk = otpType === "login" ? authLoginOtp : authOtp;
+    const result = await dispatch(thunk(payload) as any).unwrap();
 
     console.log("OTP API response:", result); 
-    if (result?.message) {
+    if (result?.status === true || result?.token || result?.access) {
       toast.success("OTP verified successfully");
-      router.push("/auth/signIn");
+      // Clear the flags
+      localStorage.removeItem("otp_email");
+      localStorage.removeItem("isLoginFlow");
+      // Redirect to home or dashboard
+      router.push("/");
     } else {
       toast.error(result?.message || "Invalid OTP");
     }
