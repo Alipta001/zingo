@@ -224,7 +224,7 @@ export default function Page() {
               {/* Sign In */}
               <p className="already-account">
                 Already have an account?
-                <Link href="/pages/auth/signin" className="signin-link">
+                <Link href="/auth/signIn" className="signin-link">
                   Sign In
                 </Link>
               </p>
@@ -235,5 +235,3 @@ export default function Page() {
     </section>
   );
 }
-
-

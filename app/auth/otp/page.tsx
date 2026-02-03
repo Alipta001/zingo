@@ -4,7 +4,7 @@ import "@/styles/otp/otp.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { authOtp } from "@/redux/slice/authSlice";
+import { authRegistrationOtp } from "@/redux/slice/authSlice";
 
 
 export default function OtpPage() {
@@ -75,7 +75,7 @@ export default function OtpPage() {
 
 
   try {
-    const result = await dispatch(authOtp(payload)).unwrap();
+    const result = await dispatch(authRegistrationOtp(payload)).unwrap();
 
     console.log("OTP API response:", result); 
     if (result?.message) {

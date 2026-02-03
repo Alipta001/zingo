@@ -133,7 +133,7 @@ AxiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.error("Unauthorized! Redirecting to login or clearing session...");
+      /* console.error("Unauthorized! Redirecting to login or clearing session..."); */
       // Optional: Clear cookie and redirect to login if a 401 occurs unexpectedly
       // cookies.remove("token", { path: "/" });
       // window.location.href = "/pages/auth/login";
