@@ -11,6 +11,9 @@ let endPoints = {
         searchResturant: `/restaurants-api/search`
     },
     menu:{
+        // NOTE: Verify with Django team if parameter should be query param or path param
+        // Current: expects /menuItems-api/list_by_restaurant_api/?restaurant_id=123
+        // OR: /menuItems-api/get_menu/ with POST body {restaurant_id: 123}
         resturantMenu: `/menuItems-api/list_by_restaurant_api`,
         searchItem:`/menuItems-api/search_api/`
     },
@@ -24,9 +27,10 @@ let endPoints = {
     },
     
     order:{
-        createOrder: `cart-api/orders-api/place-order/`,
-        getOrder: `cart-api/orders-api/track-order/:id/`,
-        listOrders: `orders-api/order-history/:id/`        
+        // ✅ FIXED: Added leading slash for absolute paths
+        createOrder: `/cart-api/orders-api/place-order/`,
+        getOrder: `/cart-api/orders-api/track-order/:id/`,
+        listOrders: `/orders-api/order-history/:id/`        
     },
     contact:{
         email: `/contact-api/send-message/`

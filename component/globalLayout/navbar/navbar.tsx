@@ -422,7 +422,7 @@ export default function Navbar() {
               <div className="flex items-center gap-4 mt-5 lg:mt-0 w-full lg:w-auto border-t lg:border-none pt-5 lg:pt-0">
                 {/* CART BUTTON */}
                 <Link 
-                  href="#" 
+                  href="/pages/cart" 
                   className="bg-[#e23744] text-white px-5 py-2 rounded-full font-semibold text-sm flex items-center gap-2 hover:bg-[#c12e3a] transition-all"
                   onClick={() => setOpen(false)}
                 >

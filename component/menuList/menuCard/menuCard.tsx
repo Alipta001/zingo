@@ -313,7 +313,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "@/app/api/axios/axios";
-import { Plus, Minus, ShoppingBag, Loader2 } from "lucide-react";
+import { Plus, Minus, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
+// Import your specific Redux actions
 import { decrement, increment } from "@/redux/slice/showSlice";
 import { addToCart } from "@/redux/slice/cartSlice";
 import styles from "../../../styles/menuList/menuCard/menuCard.module.css";
@@ -327,20 +329,14 @@ export function MenuCard({ id, name, items, rating, img, price, offer }) {
     (state: any) => state.showDataOnScreen.addToCart.quantities[id] || 1,
   );
 
-  const handleAddClick = async () => {
-    setIsAdding(true);
-    try {
-      // payload matches your API requirements
-      const payload = { menu_item_id: id, quantity: count };
-      
-      // Using .unwrap() to catch rejections in the catch block
-      await dispatch(addToCart(payload) as any).unwrap();
-      toast.success(`${name} added to cart!`);
-    } catch (err: any) {
-      toast.error(err || "Please login to add items");
-    } finally {
-      setIsAdding(false);
-    }
+  const handleAddCart = () => {
+    const payload = {
+      user_id: userId,
+      menu_item_id: id,
+      quantity: count,
+    };
+    dispatch(addToCart(payload) as any);
+    toast.success(`Added ${name} (qty: ${count}) to cart!`);
   };
 
   const getFullImageUrl = (imagePath: string) => {

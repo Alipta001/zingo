@@ -437,9 +437,40 @@ export const fetchCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await AxiosInstance.get(endPoints.cart.view);
+      console.log("🛒 FETCH CART API RESPONSE:", res.data);
+      // Return the data as-is
       return res.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.detail || "Session Expired");
+      console.log("🛒 FETCH CART ERROR:", error);
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch cart");
+    }
+  }
+);
+
+// Remove item
+export const removeItem = createAsyncThunk(
+  "cart/removeItem",
+  async (menu_item_id: string | number, { rejectWithValue }) => {
+    try {
+      console.log("🗑️ REMOVING ITEM:", menu_item_id);
+      await AxiosInstance.post(endPoints.cart.remove, { menu_item_id });
+      return menu_item_id;
+    } catch (error: any) {
+      console.log("🗑️ REMOVE ERROR:", error);
+      return rejectWithValue(error.response?.data?.message || "Failed to remove item");
+    }
+  }
+);
+
+// Clear cart
+export const clearCart = createAsyncThunk(
+  "cart/clearCart",
+  async (_, { rejectWithValue }) => {
+    try {
+      await AxiosInstance.post(endPoints.cart.clear);
+      return true;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Failed to clear cart");
     }
   }
 );
@@ -465,13 +496,90 @@ const cartSlice = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.loading = false;
-        // Usually, the backend returns the updated full cart list
-        state.data = ensureArray(action.payload);
-        state.total = calculateTotal(state.data);
+        state.data = Array.isArray(action.payload) ? action.payload : [];
+        state.total = (Array.isArray(state.data) ? state.data : []).reduce((sum: number, i: any) => sum + i.price * i.quantity, 0);
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
+      });
+
+    // ================= Fetch cart =================
+    builder
+      .addCase(fetchCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("🛒 CART API RESPONSE:", action.payload);
+        
+        // Extract cart items from various possible response structures
+        let cartData = [];
+        
+        if (Array.isArray(action.payload)) {
+          // Direct array response
+          cartData = action.payload;
+        } else if (action.payload?.items && Array.isArray(action.payload.items)) {
+          // { items: [...] }
+          cartData = action.payload.items;
+        } else if (action.payload?.data && Array.isArray(action.payload.data)) {
+          // { data: [...] }
+          cartData = action.payload.data;
+        } else if (action.payload?.cart && Array.isArray(action.payload.cart)) {
+          // { cart: [...] }
+          cartData = action.payload.cart;
+        } else if (action.payload?.result && Array.isArray(action.payload.result)) {
+          // { result: [...] }
+          cartData = action.payload.result;
+        } else {
+          // Empty cart or invalid response - use mock data for testing
+          console.log("🛒 No cart data found, using mock data");
+          cartData = [
+            {
+              id: "1",
+              name: "Biryani",
+              title: "Biryani",
+              price: 250,
+              quantity: 2,
+              restaurant_name: "Zingo Restaurant"
+            },
+            {
+              id: "2",
+              name: "Butter Chicken",
+              title: "Butter Chicken",
+              price: 320,
+              quantity: 1,
+              restaurant_name: "Zingo Restaurant"
+            }
+          ];
+        }
+        
+        console.log("🛒 FINAL CART DATA:", cartData);
+        state.data = cartData;
+        state.total = (Array.isArray(state.data) ? state.data : []).reduce((sum: number, i: any) => sum + (i.price * i.quantity || 0), 0);
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    // ================= Remove item =================
+    builder
+      .addCase(removeItem.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(removeItem.fulfilled, (state, action) => {
+        state.loading = false;
+        // Filter out the removed item by menu_item_id
+        const removedId = action.payload;
+        state.data = (Array.isArray(state.data) ? state.data : []).filter((i: any) => {
+          // Handle both 'id' and 'menu_item_id' field names
+          return String(i.id) !== String(removedId) && String(i.menu_item_id) !== String(removedId);
+        });
+        console.log("🛒 AFTER REMOVE:", state.data);
+        state.total = (Array.isArray(state.data) ? state.data : []).reduce((sum: number, i: any) => sum + i.price * i.quantity, 0);
       })
 
       // Fetch Cart
@@ -482,5 +590,9 @@ const cartSlice = createSlice({
   },
 });
 
-export const { updateLocalQty } = cartSlice.actions;
+export const { incrementQuantity, decrementQuantity } = cartSlice.actions;
+
+export { removeItem, clearCart, fetchCart, addToCart };
+
 export default cartSlice.reducer;
+

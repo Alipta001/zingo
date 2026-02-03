@@ -128,18 +128,94 @@ AxiosInstance.interceptors.request.use(
 );
 
 // ================= RESPONSE INTERCEPTOR =================
-// This handles the case where the token is invalid or expired (401)
+// This handles API errors and extracts meaningful error messages
 AxiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      /* console.error("Unauthorized! Redirecting to login or clearing session..."); */
-      // Optional: Clear cookie and redirect to login if a 401 occurs unexpectedly
-      // cookies.remove("token", { path: "/" });
-      // window.location.href = "/pages/auth/login";
+  (response) => {
+    // ✅ Check for non-2xx status codes and reject appropriately
+    if (response.status && response.status >= 400) {
+      return Promise.reject({
+        response,
+        message: getErrorMessage(response)
+      });
     }
-    return Promise.reject(error);
+    return response;
+  },
+  (error) => {
+    if (error.response) {
+      // Server responded with error status
+      const status = error.response.status;
+      const message = getErrorMessage(error.response);
+
+      if (status === 401) {
+        console.error("❌ Unauthorized! Token expired or invalid.");
+        // Optional: Clear cookie and redirect to login
+        // cookies.remove("token", { path: "/" });
+        // window.location.href = "/pages/auth/login";
+      } else if (status === 404) {
+        console.error("❌ Resource not found (404):", error.response.config?.url);
+      } else if (status >= 500) {
+        console.error("❌ Server error (" + status + "):", message);
+      } else {
+        console.error("❌ API Error (" + status + "):", message);
+      }
+
+      // Return error with clean message
+      return Promise.reject({
+        status,
+        message,
+        data: error.response.data,
+        url: error.response.config?.url
+      });
+    } else if (error.request) {
+      // Request made but no response received
+      console.error("❌ Network Error: No response from server");
+      return Promise.reject({
+        message: "Network error - please check your connection",
+        request: error.request
+      });
+    } else {
+      // Error in request setup
+      console.error("❌ Error:", error.message);
+      return Promise.reject({
+        message: error.message || "Unknown error occurred"
+      });
+    }
   }
 );
+
+/**
+ * Extract meaningful error message from response
+ */
+function getErrorMessage(response: any): string {
+  try {
+    const data = response.data;
+    
+    // Check for common error response formats
+    if (typeof data === "string") {
+      // HTML error page or plain text
+      if (data.includes("<")) {
+        // It's HTML, extract just status message
+        return `HTTP ${response.status}: ${response.statusText}`;
+      }
+      return data;
+    }
+    
+    if (typeof data === "object") {
+      // JSON error response
+      return (
+        data.message ||
+        data.detail ||
+        data.error ||
+        data.msg ||
+        `HTTP ${response.status}: ${response.statusText}`
+      );
+    }
+
+    // Fallback
+    return `HTTP ${response.status}: ${response.statusText}`;
+  } catch {
+    return `HTTP ${response.status}: ${response.statusText}`;
+  }
+}
 
 export default AxiosInstance;

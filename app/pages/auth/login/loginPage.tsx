@@ -220,7 +220,7 @@ export default function LoginPage() {
       toast.success("OTP sent to your email!");
       
       // 3. Redirect to OTP page
-      router.push("/pages/auth/signinOtp");
+      router.push("/auth/loginOtpPage");
 
     } catch (err) {
       console.error("Login Error:", err);

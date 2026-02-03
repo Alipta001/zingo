@@ -94,16 +94,39 @@ export const resturantWiseItem = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       console.log("Dispatching API call for ID:", id);
+      
+      // ✅ Validate ID parameter
+      if (!id) {
+        return rejectWithValue("Restaurant ID is required");
+      }
+
       const response = await AxiosInstance.get(
         `${endPoints.menu.resturantMenu}/${id}`
       );
       
-      // Axios returns the server response in response.data
+      // ✅ Validate response status is 2xx
+      if (!response || response.status === undefined) {
+        return rejectWithValue("Invalid server response");
+      }
+
+      // ✅ Axios returns the server response in response.data
       console.log("API Success:", response.data);
       return response.data;
-    } catch (error) {
-      const message = error.response?.data?.detail || error.message || "Failed to fetch";
-      console.error("API Error:", message);
+    } catch (error: any) {
+      // ✅ Improved error handling - extract meaningful message
+      let message = "Failed to fetch menu items";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (error.detail) {
+        message = error.detail;
+      } else if (error.data?.message) {
+        message = error.data.message;
+      } else if (error.data?.detail) {
+        message = error.data.detail;
+      }
+
+      console.error("Menu API Error:", message, error);
       return rejectWithValue(message);
     }
   }
@@ -114,12 +137,32 @@ export const searchByItem = createAsyncThunk(
   "menu/searchByItem",
   async (value, { rejectWithValue }) => {
     try {
+      if (!value || value.trim().length === 0) {
+        return rejectWithValue("Search query cannot be empty");
+      }
+
       const response = await AxiosInstance.get(
         `${endPoints.menu.searchItem}/?q=${value}`
       );
+      
+      if (!response?.data) {
+        return rejectWithValue("Invalid response from server");
+      }
+
       return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || "Search failed");
+    } catch (error: any) {
+      let message = "Search failed";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (error.detail) {
+        message = error.detail;
+      } else if (error.data?.message) {
+        message = error.data.message;
+      }
+
+      console.error("Menu Search Error:", message);
+      return rejectWithValue(message);
     }
   }
 );
