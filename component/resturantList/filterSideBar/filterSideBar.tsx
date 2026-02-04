@@ -189,7 +189,7 @@ const FILTERS = [
   {
     key: "cuisine",
     label: "Cuisine",
-    options: ["Indian", "Chinese", "Italian", "Mexican", "Thai"],
+    options: ["Indian", "Chinese", "Italian", "Mexican", "Thai", "Authentic Bengali", "Continental" ],
   },
   { key: "rating", label: "Rating", options: ["5.0", "4.5", "4.0", "3.5", "3.0"] },
   {

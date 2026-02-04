@@ -28,9 +28,10 @@ let endPoints = {
     
     order:{
         // ✅ FIXED: Added leading slash for absolute paths
-        createOrder: `/cart-api/orders-api/place-order/`,
-        getOrder: `/cart-api/orders-api/track-order/:id/`,
-        listOrders: `/orders-api/order-history/:id/`        
+        createOrder: `/orders-api/place-order/`,
+        getOrder: `/orders-api/track-order/:id/`,
+        listOrders: `/orders-api/order-history/:id/`,
+                
     },
     contact:{
         email: `/contact-api/send-message/`

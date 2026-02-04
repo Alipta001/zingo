@@ -28,7 +28,7 @@ export default function LoginPage() {
   const router = useRouter();
   const cookies = new Cookies();
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state.auth);
+  const selector = useSelector((state: any) => state.auth);
 
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -42,18 +42,17 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
-      const result = await dispatch(authLogin(data)).unwrap();
+      const result = await dispatch(authLogin(data) as any).unwrap() as any;
       console.log(result, "login result in page");
 
-      // ✅ email save for OTP page
-    localStorage.setItem("email", data.email);
-    //   if (result.status == true) {
-    //     cookies.set("token", result.token, { path: "/" });
-
-    // ✅ OTP sent → redirect
-    router.push("/auth/loginOtpPage");
+      // ✅ Store email for login OTP verification
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("isLoginFlow", "true");
+      
+      // ✅ OTP sent → redirect to login OTP page
+      router.push("/auth/loginOtpPage");
       } 
      catch (err: any) {
       setSuccess(false);

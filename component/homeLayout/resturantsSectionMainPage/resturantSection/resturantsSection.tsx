@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { resturantList } from "@/redux/slice/resturantSlice";
@@ -9,6 +9,8 @@ import styles from "../../../../styles/homeLayoutCss/resturantsSection/resturant
 
 export default function ResturantsSection() {
   const dispatch = useDispatch();
+  const [stylesLoaded, setStylesLoaded] = useState(false);
+  
   const showData = useSelector(
     (state: any) => state.showDataOnScreen.list.count,
   );
@@ -19,6 +21,28 @@ export default function ResturantsSection() {
   useEffect(() => {
     dispatch(resturantList());
   }, [dispatch]);
+
+  // --- ENSURE STYLES ARE LOADED ---
+  useEffect(() => {
+    // Force styles to load by triggering a reflow
+    const ensureStyles = () => {
+      // Access document properties to trigger style recalculation
+      const root = document.documentElement;
+      const computed = window.getComputedStyle(root);
+      
+      // Force layout recalculation
+      void root.offsetHeight;
+      
+      // Set flag that styles are ready
+      setStylesLoaded(true);
+    };
+
+    // Run after a brief delay to ensure DOM is ready
+    const timer = setTimeout(ensureStyles, 50);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
 console.log(resturants);
   if (loading)
     return (

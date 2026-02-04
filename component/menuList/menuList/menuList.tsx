@@ -174,8 +174,9 @@ export default function MenuList() {
 
   useEffect(() => {
     if (id) {
-      dispatch(resturantWiseItem(id) as any);
-      dispatch(fetchResturantById(id) as any);
+      const restaurantId = Array.isArray(id) ? id[0] : id;
+      dispatch(resturantWiseItem(restaurantId) as any);
+      dispatch(fetchResturantById(restaurantId) as any);
     }
   }, [dispatch, id]);
 
@@ -215,7 +216,12 @@ export default function MenuList() {
                 <AlertCircle className="w-10 h-10 text-rose-800 mb-4 opacity-50" />
                 <p className="text-sm font-bold text-slate-900 uppercase tracking-widest">Unable to load delicacies</p>
                 <button 
-                  onClick={() => id && dispatch(resturantWiseItem(id) as any)}
+                  onClick={() => {
+                    if (id) {
+                      const restaurantId = Array.isArray(id) ? id[0] : id;
+                      dispatch(resturantWiseItem(restaurantId) as any);
+                    }
+                  }}
                   className="mt-6 text-[10px] font-black uppercase tracking-widest text-rose-800 underline underline-offset-4"
                 >
                   Try Again

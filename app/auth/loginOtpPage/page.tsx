@@ -58,7 +58,7 @@ export default function LoginOtpPage() {
 
     try {
       const result = await dispatch(
-        authLoginOtp({ email, otp: otpValue })
+        authLoginOtp({ email, otp: otpValue }) as any
       ).unwrap();
 
       if (result?.message) {

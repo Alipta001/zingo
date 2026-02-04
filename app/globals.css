@@ -1,12 +1,15 @@
-
-
+/* Tailwind CSS v4 - All directives in one import */
 @import "tailwindcss";
 
 /* Optional font */
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"); */
 
-body {
-  font-family: "Inter", system-ui, sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
  @layer utilities {

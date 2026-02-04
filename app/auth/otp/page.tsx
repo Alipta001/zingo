@@ -1,32 +1,18 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import "@/styles/otp/otp.css"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { authOtp, authLoginOtp } from "@/redux/slice/authSlice";
+import { authOtp } from "@/redux/slice/authSlice";
 
 
 export default function OtpPage() {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { email, isOtpverified } = useSelector((state: any) => state.auth);
 
-  const [userId, setUserId] = useState("");
-  const [otpType, setOtpType] = useState<"registration" | "login">("registration"); // Track OTP type
-
-  useEffect(() => {
-    const id = localStorage.getItem("Id");
-    if (id) {
-      setUserId(id);
-    }
-    // Determine if this is registration or login OTP
-    const isLoginFlow = localStorage.getItem("isLoginFlow");
-    if (isLoginFlow === "true") {
-      setOtpType("login");
-    }
-  }, []);
+  const [userEmail, setUserEmail] = useState("");
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d?$/.test(value)) return; // allow only numbers
@@ -45,64 +31,64 @@ export default function OtpPage() {
       inputsRef.current[index - 1]?.focus();
     }
   };
+
   const getOtpValue = () => {
     return inputsRef.current.map((input) => input?.value || "").join("");
   };
 
-  const [userEmail, setUserEmail] = useState("");
-
   useEffect(() => {
-    // Try both storage keys
+    // Get email from registration page
     const storedEmail = localStorage.getItem("otp_email") || localStorage.getItem("email");
-    console.log("EMAIL FROM STORAGE:", storedEmail);
+    console.log("📧 EMAIL FROM STORAGE (Registration OTP Page):", storedEmail);
     if (storedEmail) {
       setUserEmail(storedEmail);
     }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const otpValue = getOtpValue();
+    const otpValue = getOtpValue();
 
-  if (otpValue.length !== 6) {
-    toast.error("Please enter 6-digit OTP");
-    return;
-  }
-
-  // ✅ USE localStorage email
-  if (!userEmail) {
-    toast.error("User not found. Please register again.");
-    return;
-  }
-
-  const payload = {
-    email: userEmail,
-    otp: otpValue,
-  };
-  console.log("OTP VERIFY PAYLOAD:", payload);
-
-  try {
-    // Choose the right thunk based on OTP type
-    const thunk = otpType === "login" ? authLoginOtp : authOtp;
-    const result = await dispatch(thunk(payload) as any).unwrap();
-
-    console.log("OTP API response:", result); 
-    if (result?.status === true || result?.token || result?.access) {
-      toast.success("OTP verified successfully");
-      // Clear the flags
-      localStorage.removeItem("otp_email");
-      localStorage.removeItem("isLoginFlow");
-      // Redirect to home or dashboard
-      router.push("/");
-    } else {
-      toast.error(result?.message || "Invalid OTP");
+    if (otpValue.length !== 6) {
+      toast.error("Please enter 6-digit OTP");
+      return;
     }
-  } catch (error: any) {
-    console.error("OTP error:", error); 
-    toast.error(error?.message || "OTP verification failed");
-  }
-};
+
+    // ✅ USE localStorage email
+    if (!userEmail) {
+      toast.error("User not found. Please register again.");
+      return;
+    }
+
+    const payload = {
+      email: userEmail,
+      otp: otpValue,
+    };
+    console.log("🔐 REGISTRATION OTP VERIFY PAYLOAD:", payload);
+
+    try {
+      // Registration OTP verification
+      const result = await dispatch(authOtp(payload) as any).unwrap();
+
+      console.log("✅ OTP API response:", result); 
+      // Accept success when backend returns status/token or a success message
+      const successMessage = /verified|success|successfully/i.test(result?.message || "");
+      if (result?.status === true || result?.token || result?.access || successMessage) {
+        toast.success("OTP verified successfully! Please login now.");
+        // Clear the storage
+        localStorage.removeItem("otp_email");
+        localStorage.removeItem("email");
+        // Redirect to login page after successful registration
+        router.push("/auth/signIn");
+      } else {
+        toast.error(result?.message || "Invalid OTP");
+      }
+    } catch (error: any) {
+      console.error("❌ OTP error:", error); 
+      toast.error(error?.message || "OTP verification failed");
+    }
+  };
 
 
   
@@ -114,11 +100,11 @@ export default function OtpPage() {
 
       <div className="otp-wrapper">
         <div className="otp-card">
-          <h2>OTP Verification</h2>
+          <h2>Registration OTP Verification</h2>
 
           <p>
             Enter the 6 digit OTP sent to <br />
-            <strong>{email || "your email"}</strong>
+            <strong>{userEmail || "your email"}</strong>
           </p>
 
           <form onSubmit={handleSubmit}>

@@ -20,6 +20,7 @@ export default function RestaurantSection() {
 
   // --- PAGINATION STATE ---
   const [currentPage, setCurrentPage] = useState(0);
+  const [stylesLoaded, setStylesLoaded] = useState(false);
 
   // --- REDUX DATA ---
   const { data: restaurants = [] } = useSelector(
@@ -36,6 +37,27 @@ export default function RestaurantSection() {
     dispatch(resturantList());
     console.log("Current Token in Cookie:", document.cookie.split('; ').find(row => row.startsWith('token=')));
   }, [dispatch]);
+
+  // --- ENSURE STYLES ARE LOADED ---
+  useEffect(() => {
+    // Force styles to load by triggering a reflow
+    const ensureStyles = () => {
+      // Access document properties to trigger style recalculation
+      const root = document.documentElement;
+      const computed = window.getComputedStyle(root);
+      
+      // Force layout recalculation
+      void root.offsetHeight;
+      
+      // Set flag that styles are ready
+      setStylesLoaded(true);
+    };
+
+    // Run after a brief delay to ensure DOM is ready
+    const timer = setTimeout(ensureStyles, 50);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // --- FILTER LOGIC ---
   const filteredRestaurants = restaurants.filter((r: any) => {

@@ -103,6 +103,7 @@ import filterSlice from "../slice/filterSlice";
 import contactSlice from "../slice/contactSlice";
 import adminViewSlice from "../slice/adminViewSlice";
 import authReducer from "../slice/authSlice";
+import orderReducer from "../slice/orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -111,9 +112,10 @@ export const store = configureStore({
     cart: cartReducer,
     showDataOnScreen: showDataOnScreenSlice.reducer,
     filters: filterSlice.reducer,
-    contact: contactSlice.reducer,
+    contact: contactSlice,
     adminView: adminViewSlice.reducer,
     auth: authReducer,
+    order: orderReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

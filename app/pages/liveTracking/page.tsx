@@ -1,4 +1,4 @@
-
+export const dynamic = 'force-dynamic';
 import Navbar from '@/component/globalLayout/navbar/navbar'
 import OrderTrackingPage from '@/component/liveTracking/orderTrackingPage'
 

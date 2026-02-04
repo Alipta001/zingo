@@ -45,16 +45,16 @@ export default function Page() {
     resolver: yupResolver(schema),
   });
 
-  const handleClick = async (data) => {
+  const handleClick = async (data: any) => {
 
   
-    const mapRole = {
+    const mapRole: { [key: string]: string } = {
       user: "customer",
       admin: "admin",
       delivery: "delivery_partner",
     };
     const payload = {
-      role: mapRole[data.role] || "customer",
+      role: mapRole[data.role as string] || "customer",
       username: data.username,
       email: data.email,
       password: data.password,
@@ -65,7 +65,7 @@ export default function Page() {
     console.log("JSON Payload:", payload);
 
     try {
-      let res = await dispatch(authRegistration(payload)).unwrap();
+      let res = await dispatch(authRegistration(payload) as any).unwrap() as any;
 
       console.log("Registration response:", res);
       const emailToStore=res?.user?.email||payload.email;
@@ -77,9 +77,9 @@ export default function Page() {
       if (res?.message) {
       toast.success(res.message);
         // Redirect to OTP verification page with email stored
-        router.push("/app/auth/otp");
+        router.push("/auth/otp");
       } else {
-        router.push("/app/auth/signUp");
+        router.push("/auth/signUp");
       }
     } catch (error) {}
   };

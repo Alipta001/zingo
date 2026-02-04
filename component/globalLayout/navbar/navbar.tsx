@@ -485,6 +485,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 // 1. IMPORT SIGN-OUT FROM NEXT-AUTH
 import { signOut } from "next-auth/react";
+import { removeCookie, getAllCookies } from "@/app/api/axios/cookieUtils";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -502,20 +503,36 @@ export default function Navbar() {
 
   // --- LOGOUT LOGIC ---
   const handleLogout = async () => {
-    // 1. Clear Local Storage & Session Storage
+    console.log("🚀 Starting logout process...");
+
+    // 1. Clear ALL cookies manually (including the custom "token" cookie)
+    const allCookies = getAllCookies();
+    console.log("📋 All cookies before logout:", allCookies);
+    
+    // Remove each cookie individually
+    Object.keys(allCookies).forEach((cookieName) => {
+      removeCookie(cookieName, "/");
+      console.log(`🗑️ Removed cookie: ${cookieName}`);
+    });
+
+    // 2. Clear Local Storage & Session Storage
     localStorage.clear();
     sessionStorage.clear();
+    console.log("✅ Cleared localStorage and sessionStorage");
 
-    // 2. Close UI States
+    // 3. Close UI States
     setProfileOpen(false);
     setOpen(false);
 
-    // 3. Trigger NextAuth SignOut
+    // 4. Trigger NextAuth SignOut
     // This clears the next-auth.callback-url, csrf-token, and session cookies
+    console.log("🔐 Calling signOut from next-auth...");
     await signOut({ 
       callbackUrl: "/auth/signIn", // Redirects here after clearing cookies
       redirect: true 
     });
+    
+    console.log("✅ Logout complete - redirecting to sign in page");
   };
 
   useEffect(() => {
@@ -682,7 +699,7 @@ export default function Navbar() {
                         Sign Up
                       </Link>
                       <hr className="my-1 border-gray-50" />
-                      <button onClick={handleLogout} className="w-full text-left block px-5 py-3 text-sm font-bold text-gray-400 hover:bg-gray-50 hover:text-black transition-colors">
+                      <button onClick={handleLogout} className="w-full text-left block px-5 py-3 text-sm font-bold text-gray-400 hover:bg-gray-50 hover:text-black transition-colors cursor-pointer">
                         Logout
                       </button>
                     </div>

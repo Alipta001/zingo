@@ -120,14 +120,13 @@ import "../../../../styles/signinOtp/signinOtp.css";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Cookies } from "react-cookie"; // ✅ Added
+import { setCookie } from "@/app/api/axios/cookieUtils";
 import { authLoginOtp } from "@/redux/slice/authSlice";
 
 export default function LoginOtpPage() {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const cookies = new Cookies(); // ✅ Initialize Cookies
 
   const [email, setEmail] = useState("");
 
@@ -175,18 +174,19 @@ export default function LoginOtpPage() {
 
     try {
       // 1. Dispatch the OTP verification
-      const result = await dispatch(
-        authLoginOtp({ email, otp: otpValue })
+      const result: any = await dispatch(
+        authLoginOtp({ email, otp: otpValue }) as any
       ).unwrap();
 
       console.log("OTP Verification Result:", result);
 
-      // 2. ✅ SAVING THE TOKEN (The missing piece)
+      // 2. ✅ SAVING THE TOKEN (The critical piece)
       // We look for 'token', 'access', or 'access_token' based on your Django response
       const token = result?.token || result?.access || result?.access_token;
 
       if (token) {
-        cookies.set("token", token, { 
+        // ✅ Use native setCookie instead of react-cookie
+        setCookie("token", token, { 
           path: "/", 
           maxAge: 86400, // 24 hours
           sameSite: 'lax' 

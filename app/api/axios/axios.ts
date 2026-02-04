@@ -92,7 +92,6 @@
 
 
 import axios from "axios";
-import { Cookies } from "react-cookie";
 
 export const BaseURL = "http://127.0.0.1:8000";
 
@@ -101,13 +100,32 @@ const AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-const cookies = new Cookies();
+/**
+ * Utility function to get token from cookies
+ * Uses native document.cookie API to avoid context issues with react-cookie
+ */
+function getTokenFromCookie(): string | null {
+  if (typeof document === "undefined") {
+    // Server-side rendering, no document available
+    return null;
+  }
+
+  const cookies = document.cookie.split("; ");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split("=");
+    if (name === "token") {
+      // Decode the token (cookies are URL-encoded)
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+}
 
 // ================= REQUEST INTERCEPTOR =================
 AxiosInstance.interceptors.request.use(
   (config) => {
-    // 1. Get token from cookies
-    const token = cookies.get("token");
+    // 1. Get token from cookies using native API
+    const token = getTokenFromCookie();
 
     // 2. Define routes that should NOT send a token
     const isPublicUrl = 
@@ -119,9 +137,12 @@ AxiosInstance.interceptors.request.use(
     if (token && !isPublicUrl) {
       // Use this method to ensure you don't overwrite other important headers
       config.headers.Authorization = `Bearer ${token}`;
+      console.log(`✅ [Axios] Token ATTACHED to ${config.method?.toUpperCase()} ${config.url}`);
+    } else if (!token && !isPublicUrl) {
+      console.warn(`⚠️ [Axios] NO TOKEN FOUND for ${config.method?.toUpperCase()} ${config.url}`);
     }
 
-    // 4. Debug: Important for your troubleshooting
+    // 4. Debug logging
     console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url} | Token Attached: ${!!token}`);
 
     return config;
@@ -150,9 +171,17 @@ AxiosInstance.interceptors.response.use(
 
       if (status === 401) {
         console.error("❌ Unauthorized! Token expired or invalid.");
-        // Optional: Clear cookie and redirect to login
-        // cookies.remove("token", { path: "/" });
-        // window.location.href = "/pages/auth/login";
+        try {
+          // Remove token cookie using native API
+          if (typeof document !== "undefined") {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          }
+          if (typeof window !== "undefined") {
+            window.location.href = "/auth/signIn";
+          }
+        } catch (e) {
+          console.error("Failed to redirect after 401", e);
+        }
       } else if (status === 404) {
         console.error("❌ Resource not found (404):", error.response.config?.url);
       } else if (status >= 500) {

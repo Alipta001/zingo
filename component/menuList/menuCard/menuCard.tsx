@@ -310,42 +310,76 @@
 // }
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "@/app/api/axios/axios";
-import { Plus, Minus, ShoppingBag } from "lucide-react";
-import { toast } from "sonner";
-// Import your specific Redux actions
-import { decrement, increment } from "@/redux/slice/showSlice";
-import { addToCart } from "@/redux/slice/cartSlice";
-import styles from "../../../styles/menuList/menuCard/menuCard.module.css";
-import toast from "react-hot-toast";
 
-export function MenuCard({ id, name, items, rating, img, price, offer }) {
+// Import your specific Redux actions
+
+import styles from "../../../styles/menuList/menuCard/menuCard.module.css";
+import { toast } from "sonner";
+
+import { Plus, Minus, ShoppingBag, Loader2 } from "lucide-react";
+import { addToCart } from "@/redux/slice/cartSlice";
+import { increment, decrement } from "@/redux/slice/showSlice";
+
+interface MenuCardProps {
+  id: string | number;
+  name: string;
+  items?: any[];
+  rating?: number;
+  img?: string;
+  price: number;
+  offer?: string | number;
+}
+
+export function MenuCard({ id, name, items, rating, img, price, offer }: MenuCardProps) {
   const dispatch = useDispatch();
   const [isAdding, setIsAdding] = useState(false);
 
-  const count = useSelector(
-    (state: any) => state.showDataOnScreen.addToCart.quantities[id] || 1,
-  );
+  // Use local selected quantity for the card UI (default 1)
+  const countFromStore = useSelector((state: any) => state.showDataOnScreen?.addToCart?.quantities?.[id] ?? 0);
+  const [selectedQty, setSelectedQty] = useState<number>(countFromStore > 0 ? countFromStore : 1);
 
-  const handleAddCart = () => {
-    const payload = {
-      user_id: userId,
-      menu_item_id: id,
-      quantity: count,
-    };
-    dispatch(addToCart(payload) as any);
-    toast.success(`Added ${name} (qty: ${count}) to cart!`);
-  };
+  useEffect(() => {
+    // Keep selectedQty in sync if another component updates the store-based count
+    if (countFromStore > 0) setSelectedQty(countFromStore);
+  }, [countFromStore]);
 
-  const getFullImageUrl = (imagePath: string) => {
+  const userId = (typeof window !== "undefined")
+    ? localStorage.getItem("Id") || localStorage.getItem("userId") || null
+    : null;
+
+  const getFullImageUrl = (imagePath?: string) => {
     if (!imagePath) return "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000&auto=format&fit=crop";
     if (imagePath.startsWith("http")) return imagePath;
     const cleanBase = BaseURL.endsWith("/") ? BaseURL.slice(0, -1) : BaseURL;
     const cleanPath = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
     return `${cleanBase}${cleanPath}`;
   };
+
+  const handleAddCart = async () => {
+    setIsAdding(true);
+    const payload = {
+      user_id: userId,
+      menu_item_id: typeof id === "string" ? parseInt(id) : id,
+      quantity: selectedQty || 1,
+    };
+
+    try {
+      await dispatch(addToCart(payload) as any).unwrap();
+      toast.success(`${name} added to cart (qty: ${payload.quantity})`);
+      // update shared UI state so other cards reflect the change
+      if (countFromStore === 0) dispatch(increment(id));
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to add item to cart");
+    } finally {
+      setIsAdding(false);
+    }
+  };
+
+  const inc = () => setSelectedQty((s) => Math.min(s + 1, 99));
+  const dec = () => setSelectedQty((s) => Math.max(1, s - 1));
 
   return (
     <div className={`${styles.royalCard} group bg-white rounded-[32px] p-3 border border-transparent hover:border-rose-100 transition-all duration-500 flex flex-col h-full`}>
@@ -363,25 +397,29 @@ export function MenuCard({ id, name, items, rating, img, price, offer }) {
             <span className="text-[10px] font-black text-emerald-700">{rating} ★</span>
           </div>
         </div>
-        
+
         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center gap-3">
+          {/* Quantity selector on the left */}
           <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/50">
-            <button className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white" onClick={() => dispatch(decrement(id))} disabled={count <= 1 || isAdding}>
+            <button onClick={dec} disabled={isAdding} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white disabled:opacity-30">
               <Minus size={12} strokeWidth={3} />
             </button>
-            <span className="px-3 text-sm font-black text-slate-900">{count}</span>
-            <button className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white" onClick={() => dispatch(increment(id))} disabled={isAdding}>
+            <span className="px-3 text-sm font-black text-slate-900">{selectedQty}</span>
+            <button onClick={inc} disabled={isAdding} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white disabled:opacity-30">
               <Plus size={12} strokeWidth={3} />
             </button>
           </div>
 
-          <button 
-            onClick={handleAddClick} 
-            disabled={isAdding}
-            className={`${styles.shimmerBtn} flex-1 bg-slate-900 text-white h-11 rounded-2xl flex items-center justify-center gap-2 hover:bg-rose-800 transition-all active:scale-95 disabled:bg-slate-400`}
-          >
-            {isAdding ? <Loader2 size={14} className="animate-spin" /> : <><ShoppingBag size={14} /><span className="text-[10px] font-black uppercase tracking-widest">Add</span></>}
-          </button>
+          {/* Add button on the right */}
+          <div className="ml-auto w-32">
+            <button
+              onClick={handleAddCart}
+              disabled={isAdding}
+              className={`${styles.shimmerBtn} w-full bg-slate-900 text-white h-11 rounded-2xl flex items-center justify-center gap-2 hover:bg-rose-800 transition-all active:scale-95 disabled:bg-slate-400 cursor-pointer`}
+            >
+              {isAdding ? <Loader2 size={14} className="animate-spin" /> : <><ShoppingBag size={14} /><span className="text-[10px] font-black uppercase tracking-widest">Add</span></>}
+            </button>
+          </div>
         </div>
       </div>
     </div>

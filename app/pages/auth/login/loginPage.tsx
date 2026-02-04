@@ -163,12 +163,12 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Cookies } from "react-cookie";
 import { toast } from "sonner";
 import "../../../../styles/login/login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { setCookie } from "@/app/api/axios/cookieUtils";
 
 /* ================== Yup Schema ================== */
 const schema = yup.object({
@@ -183,7 +183,6 @@ const schema = yup.object({
 
 export default function LoginPage() {
   const router = useRouter();
-  const cookies = new Cookies();
   const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -196,10 +195,10 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
       // Dispatching login
-      const result = await dispatch(authLogin(data)).unwrap();
+      const result: any = await dispatch(authLogin(data) as any).unwrap();
       console.log(result, "Login successful");
 
       // 1. Save email for the OTP page
@@ -210,7 +209,7 @@ export default function LoginPage() {
       // If it provides it AFTER OTP, make sure to do this same logic in signinOtp page.
       if (result.token || result.access) {
         const activeToken = result.token || result.access;
-        cookies.set("token", activeToken, { 
+        setCookie("token", activeToken, { 
           path: "/", 
           maxAge: 3600, // 1 hour
           sameSite: 'lax' 

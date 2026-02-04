@@ -147,7 +147,8 @@ export default function BlogDetail() {
               {[1, 2, 3].map((i) => (
                 <div key={i} className="group cursor-pointer">
                   <div className="aspect-[16/11] rounded-[45px] overflow-hidden mb-8 relative shadow-lg">
-                    <img src={`/images/blog/blog${i+1}.jpg`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Related post" />
+                    <img src={`/images/blog/blog${i+1}.jpg`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="/images/blog/blog6.jpeg"
+  />
                     <div className="absolute inset-0 bg-gradient-to-t from-rose-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="flex items-center gap-3 mb-4">
