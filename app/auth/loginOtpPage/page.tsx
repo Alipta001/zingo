@@ -20,6 +20,14 @@ export default function LoginOtpPage() {
     }
   }, []);
 
+  // ✅ Cleanup body styles when component unmounts (back button)
+  useEffect(() => {
+    return () => {
+      document.body.style = '';
+      document.documentElement.style = '';
+    };
+  }, []);
+
   const handleChange = (index: number, value: string) => {
     if (!/^\d?$/.test(value)) return;
 

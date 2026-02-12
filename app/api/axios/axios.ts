@@ -93,7 +93,7 @@
 
 import axios from "axios";
 
-export const BaseURL = "http://127.0.0.1:8000";
+export const BaseURL = process.env.BACKEND_URL || "http://localhost:8000";
 
 const AxiosInstance = axios.create({
   baseURL: BaseURL,

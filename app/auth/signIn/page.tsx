@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Cookies } from "react-cookie";
 import { toast } from "sonner";
 import "../../../styles/login/login.css"
@@ -33,6 +33,14 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  // ✅ Cleanup body styles when component unmounts (back button)
+  useEffect(() => {
+    return () => {
+      document.body.style = '';
+      document.documentElement.style = '';
+    };
+  }, []);
 
   const {
     register,

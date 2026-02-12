@@ -44,6 +44,14 @@ export default function OtpPage() {
     }
   }, []);
 
+  // ✅ Cleanup body styles when component unmounts (back button)
+  useEffect(() => {
+    return () => {
+      document.body.style = '';
+      document.documentElement.style = '';
+    };
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { authRegistration } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /* ================== Yup Schema ================== */
 const schema = yup.object().shape({
@@ -35,6 +35,14 @@ export default function Page() {
   // const [selectedRole, setSelectedRole] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
+
+  // ✅ Cleanup body styles when component unmounts (back button)
+  useEffect(() => {
+    return () => {
+      document.body.style = '';
+      document.documentElement.style = '';
+    };
+  }, []);
 
   const {
     register,
