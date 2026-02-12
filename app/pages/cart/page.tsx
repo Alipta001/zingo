@@ -14,13 +14,8 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const { data: cartItems = [], loading, error } = useSelector((state: any) => state.cart);
 
-  console.log("📄 CART PAGE - Data:", cartItems);
-  console.log("📄 CART PAGE - Loading:", loading);
-  console.log("📄 CART PAGE - Error:", error);
-
   useEffect(() => {
     // Fetch cart from backend on component mount
-    console.log("📄 FETCHING CART...");
     dispatch(fetchCart() as any);
   }, [dispatch]);
 

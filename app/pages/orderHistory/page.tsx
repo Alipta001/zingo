@@ -23,7 +23,6 @@ export default function OrderHistoryPage() {
 
   useEffect(() => {
     if (userId && isClient) {
-      console.log("📦 Fetching orders for user:", userId);
       dispatch(fetchOrderHistory(userId) as any);
     }
   }, [userId, dispatch, isClient]);

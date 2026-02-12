@@ -62,7 +62,7 @@ export default function LoginOtpPage() {
       ).unwrap();
 
       if (result?.message) {
-        router.push("/"); // ✅ home/dashboard
+        window.location.href = "/"; // ✅ full page reload for styles
       }
     } catch (err: any) {
       toast.error(err?.message || "OTP failed");

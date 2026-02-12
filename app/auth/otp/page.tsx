@@ -39,7 +39,6 @@ export default function OtpPage() {
   useEffect(() => {
     // Get email from registration page
     const storedEmail = localStorage.getItem("otp_email") || localStorage.getItem("email");
-    console.log("📧 EMAIL FROM STORAGE (Registration OTP Page):", storedEmail);
     if (storedEmail) {
       setUserEmail(storedEmail);
     }
@@ -65,13 +64,10 @@ export default function OtpPage() {
       email: userEmail,
       otp: otpValue,
     };
-    console.log("🔐 REGISTRATION OTP VERIFY PAYLOAD:", payload);
 
     try {
       // Registration OTP verification
-      const result = await dispatch(authOtp(payload) as any).unwrap();
-
-      console.log("✅ OTP API response:", result); 
+      const result = await dispatch(authOtp(payload) as any).unwrap(); 
       // Accept success when backend returns status/token or a success message
       const successMessage = /verified|success|successfully/i.test(result?.message || "");
       if (result?.status === true || result?.token || result?.access || successMessage) {
@@ -85,7 +81,6 @@ export default function OtpPage() {
         toast.error(result?.message || "Invalid OTP");
       }
     } catch (error: any) {
-      console.error("❌ OTP error:", error); 
       toast.error(error?.message || "OTP verification failed");
     }
   };

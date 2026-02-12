@@ -58,7 +58,6 @@ export function setCookie(
   }
 
   document.cookie = cookieString;
-  console.log(`✅ Cookie set: ${name}`);
 }
 
 /**
@@ -70,7 +69,6 @@ export function removeCookie(name: string, path: string = "/"): void {
   }
 
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
-  console.log(`✅ Cookie removed: ${name}`);
 }
 
 /**

@@ -45,7 +45,6 @@ export default function LoginPage() {
   const onSubmit = async (data: any) => {
     try {
       const result = await dispatch(authLogin(data) as any).unwrap() as any;
-      console.log(result, "login result in page");
 
       // ✅ Store email for login OTP verification
       localStorage.setItem("email", data.email);

@@ -1,13 +1,13 @@
 // src/types/cart.ts
 
 export interface CartItem {
-  id: string;                 // food id
-  name: string;               // food name
-  price: number;              // price of single item
-  quantity: number;           // how many added
-  restaurantId: string;       // which restaurant
+  id: string;                
+  name: string;              
+  price: number;              
+  quantity: number;        
+  restaurantId: string;     
   restaurantName: string;
-  image?: string;             // optional
+  image?: string;             
 }
 
 export interface CartState {

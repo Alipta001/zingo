@@ -137,13 +137,9 @@ AxiosInstance.interceptors.request.use(
     if (token && !isPublicUrl) {
       // Use this method to ensure you don't overwrite other important headers
       config.headers.Authorization = `Bearer ${token}`;
-      console.log(`✅ [Axios] Token ATTACHED to ${config.method?.toUpperCase()} ${config.url}`);
     } else if (!token && !isPublicUrl) {
-      console.warn(`⚠️ [Axios] NO TOKEN FOUND for ${config.method?.toUpperCase()} ${config.url}`);
+      // optional: warn if token missing
     }
-
-    // 4. Debug logging
-    console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url} | Token Attached: ${!!token}`);
 
     return config;
   },

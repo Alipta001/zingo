@@ -60,18 +60,12 @@ export default function Page() {
       password: data.password,
       confirm_password: data.confirm_password,
     };
-    console.log("Final payload to backend:", JSON.stringify(payload, null, 2));
-
-    console.log("JSON Payload:", payload);
 
     try {
       let res = await dispatch(authRegistration(payload) as any).unwrap() as any;
 
-      console.log("Registration response:", res);
-      const emailToStore=res?.user?.email||payload.email;
-      console.log("Storing email for OTP:", emailToStore);
+      const emailToStore = res?.user?.email || payload.email;
       localStorage.setItem("otp_email", emailToStore);
-      console.log("Email stored for OTP:", localStorage.getItem("otp_email"));
 
 
       if (res?.message) {

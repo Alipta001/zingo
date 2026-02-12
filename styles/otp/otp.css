@@ -8,19 +8,19 @@
 
 /* Background image */
 .otp-bg-image {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: url("/images/register/image.png") no-repeat center/cover;
-  z-index: -2;
+  z-index: 0;
 }
 
 /* Blur overlay */
 .otp-bg-blur {
-  position: absolute;
+  position: fixed;
   inset: 0;
   backdrop-filter: blur(10px);
   background: rgba(0, 0, 0, 0.35);
-  z-index: -1;
+  z-index: 1;
 }
 
 /* Center wrapper */
@@ -43,6 +43,8 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
 }
 
 .otp-card h2 {

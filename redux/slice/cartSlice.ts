@@ -869,13 +869,11 @@ const initialState: CartState = {
   total: 0,
 };
 
-// ---------- HELPER ----------
+
 const calculateTotal = (items: any[]) =>
   items.reduce((sum, i) => sum + (i.price || 0) * (i.quantity || 0), 0);
 
-// ===================== THUNKS =====================
 
-// Fetch cart (SINGLE SOURCE OF TRUTH)
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (_, { rejectWithValue }) => {
@@ -908,7 +906,7 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-// Remove item (ONLY ONE VERSION)
+// Remove item
 export const removeItem = createAsyncThunk(
   "cart/removeItem",
   async (menu_item_id: string | number, { rejectWithValue }) => {
@@ -921,7 +919,7 @@ export const removeItem = createAsyncThunk(
   }
 );
 
-// Clear cart (ONLY ONE VERSION)
+// Clear cart
 export const clearCart = createAsyncThunk(
   "cart/clearCart",
   async (_, { rejectWithValue }) => {
@@ -940,7 +938,7 @@ export const placeOrder = createAsyncThunk(
   async (payload: any, { rejectWithValue }) => {
     try {
       const res = await AxiosInstance.post(endPoints.order.createOrder, payload);
-      return res.data; // Should return { id: "...", status: "pending" } etc
+      return res.data;
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.detail || error.response?.data?.message || "Failed to place order"
@@ -949,7 +947,6 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
-// ===================== SLICE =====================
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -1061,6 +1058,6 @@ const cartSlice = createSlice({
 });
 
 export const { resetCartError, incrementQuantity, decrementQuantity } = cartSlice.actions;
-export const removeItemFromApi = removeItem; // Alias for compatibility
-export const clearCartApi = clearCart; // Alias for compatibility
+export const removeItemFromApi = removeItem; 
+export const clearCartApi = clearCart;
 export default cartSlice.reducer;

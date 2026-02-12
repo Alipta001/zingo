@@ -178,8 +178,6 @@ export default function LoginOtpPage() {
         authLoginOtp({ email, otp: otpValue }) as any
       ).unwrap();
 
-      console.log("OTP Verification Result:", result);
-
       // 2. ✅ SAVING THE TOKEN (The critical piece)
       // We look for 'token', 'access', or 'access_token' based on your Django response
       const token = result?.token || result?.access || result?.access_token;

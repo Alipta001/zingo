@@ -1,8 +1,8 @@
-// redux/slices/adminViewSlice.ts
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  activeView: "dashboard", // default
+  activeView: "dashboard",
 };
 
 const adminViewSlice = createSlice({

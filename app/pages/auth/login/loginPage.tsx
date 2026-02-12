@@ -199,7 +199,6 @@ export default function LoginPage() {
     try {
       // Dispatching login
       const result: any = await dispatch(authLogin(data) as any).unwrap();
-      console.log(result, "Login successful");
 
       // 1. Save email for the OTP page
       localStorage.setItem("email", data.email);
